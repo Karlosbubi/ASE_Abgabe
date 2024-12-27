@@ -14,11 +14,16 @@ something something
    - [NodeJS](https://nodejs.org/en/download/package-manager), recommended version 22.12, minimum version 18.18
    - [pnpm](https://pnpm.io/installation) (recommended or packagemanager of choice)
    - nest JS cli
+   - docker and docker compose
 2. Get the repo `git clone git@github.com:Karlosbubi/ASE_Abgabe.git`
 3. Install dependencies with `pnpm install` for both frontend and backend
 4. Get started
+   - Spin up development Database `docker compose -f docker-compose_dev_db.yaml up`
    - Run the backend with `pnpm start:dev`
    - Spin up the frontend with `pnpm dev`
+5. When done shut everything down
+   - Node stops with `Ctrl+C`
+   - Database `docker compose -f docker-compose_dev_db.yaml down`
 
 ## User storys
 
