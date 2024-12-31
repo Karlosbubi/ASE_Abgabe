@@ -1,5 +1,7 @@
 # ASE_Abgabe
 
+![Build status](<https://teamcity.brunner.codes/guestAuth/app/rest/builds/buildType:(id:AseAbgabe_Build)/statusIcon>)
+
 ## Getting Started
 
 ### Deployment
