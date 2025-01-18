@@ -37,11 +37,20 @@ something something
 - Als Nutzer möchte ich neue Inhalte auf meine Mindmap hinzufügen können
 - Als Nutzer möchte ich meine Mindmaps exportieren können
 - [Bonus] Als Nutzer möchte ich meine Mindmaps mit anderen Nutzern teilen können
-  - [Bonus] Als einladender Nutzer möchte ich mitlesende wieder entfernen können
-  - [Bonus] Als einladender Nutzer möchte ich Lese-/Schreibrechte der anderen verwalten können
-  - [Bonus] Als eingeladener Nutzer möchte ich in geteilten Mindmaps mitarbeiten können
+- [Bonus] Als einladender Nutzer möchte ich mitlesende wieder entfernen können
+- [Bonus] Als einladender Nutzer möchte ich Lese-/Schreibrechte der anderen verwalten können
+- [Bonus] Als eingeladener Nutzer möchte ich in geteilten Mindmaps mitarbeiten können
 
 ### admin Nutzer
 
 - Als admin Nutzer möchte ich Statistiken über das Nutzverhalten einsehen können
 - Als admin Nutzer möchte ich Nutzerkonten sperren können
+
+## Todos
+
+- [ ] add user password hashing
+- [ ] add Auth Guard
+- [ ] add Auth Roles (Will der Habeck unbedingt)
+- [ ] Mindmap Nodes SQL Schema fixen
+- [ ] add Mindmap Controller
+- [ ] Frontend mal anfangen
