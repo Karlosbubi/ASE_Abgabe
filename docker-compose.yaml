@@ -13,13 +13,13 @@ services:
       context: ./ase-backend
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - "3000:3000"
   frontend:
     build: 
       context: ./ase-frontend
       dockerfile: Dockerfile
     ports:
-      - 8080:80
+      - "8080:80"
       
 volumes:
   db: 
