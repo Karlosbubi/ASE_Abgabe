@@ -10,12 +10,13 @@ datasource db {
 model User {
   id            Int       @id @default(autoincrement())
   name          String
-  email         String
+  email         String    @unique
   passwordHash  String
 }
 
-model WitheboardNode {
+model MindemapNode {
   id            Int @id @default(autoincrement())
   title         String
   contentText   String
+  parentNodeId  Int // TODO Fix Relation Constraint
 }
