@@ -7,10 +7,12 @@ import { UserController } from './user/user.controller';
 import { PrismaService } from './prisma/prisma.service';
 import { MindmapNodeController } from './mindmap-node/mindmap-node.controller';
 import { MindmapNodeService } from './mindmap-node/mindmap-node.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, AuthModule],
   controllers: [AppController, UserController, MindmapNodeController],
   providers: [AppService, UserService, PrismaService, MindmapNodeService],
 })
+
 export class AppModule {}
