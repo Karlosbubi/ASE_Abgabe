@@ -54,3 +54,4 @@ something something
 - [ ] Mindmap Nodes SQL Schema fixen
 - [ ] add Mindmap Controller
 - [ ] Frontend mal anfangen
+- [ ] Docker Daten persintenz gegen checken
