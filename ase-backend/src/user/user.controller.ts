@@ -3,7 +3,8 @@ import {
   Controller,
   Delete,
   Get,
-  Param, Patch,
+  Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/CreateUserDto';
