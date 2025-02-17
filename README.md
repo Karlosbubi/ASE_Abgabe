@@ -49,7 +49,7 @@ something something
 ## Todos
 
 - [ ] add user password hashing
-- [ ] add Auth Guard
+- [x] add Auth Guard
 - [ ] add Auth Roles (Will der Habeck unbedingt)
 - [ ] Mindmap Nodes SQL Schema fixen
 - [ ] add Mindmap Controller
