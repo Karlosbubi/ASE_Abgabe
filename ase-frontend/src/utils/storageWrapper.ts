@@ -1,7 +1,8 @@
 import { User } from "../DTO/user";
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 enum localStorageKeys {
-    CurrentUser = "CURRENT_USER"
+    CurrentUser = "CURRENT_USER",
 }
 
 export function GetCurrentUser() : User | null {
@@ -11,6 +12,25 @@ export function GetCurrentUser() : User | null {
     }
 
     return JSON.parse(tmp);
+}
+
+interface CustomJwtPayload extends JwtPayload {
+    id: number;
+    name: string;
+    email: string;
+    // TODO Roles
+}
+
+export function SetCurrentUserJwt(jwt: string) : void {
+    const payload = jwtDecode(jwt) as CustomJwtPayload;
+
+    const user = new User({
+        id: payload.id,
+        name: payload.name,
+        JWT: jwt
+    });
+
+    SetCurrentUser(user);
 }
 
 export function SetCurrentUser(user : User | null) : void {

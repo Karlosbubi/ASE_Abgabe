@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function RegisterForm() {
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {

@@ -1,3 +1,4 @@
+import LoginForm from "./components/LoginForm";
 import NavBar from "./components/NavBar";
 import RegisterForm from "./components/RegisterForm";
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <NavBar />
       <RegisterForm />
+      <LoginForm />
     </>
   )
 }
