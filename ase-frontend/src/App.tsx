@@ -1,16 +1,17 @@
-import LoginForm from "./components/LoginForm";
-import NavBar from "./components/NavBar";
-import RegisterForm from "./components/RegisterForm";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import HomePage from "./components/HomePage.tsx";
+import LoginPage from "./components/login/LoginPage.tsx";
 
 function App() {
 
-  return (
-    <>
-      <NavBar />
-      <RegisterForm />
-      <LoginForm />
-    </>
-  )
+  return (<>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" Component={HomePage} />
+              <Route path={"/login"} Component={LoginPage} />
+          </Routes>
+      </BrowserRouter>
+  </>)
 }
 
 export default App;
