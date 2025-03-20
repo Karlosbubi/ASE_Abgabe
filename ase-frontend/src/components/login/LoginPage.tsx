@@ -14,7 +14,8 @@ const LoginPage = () => {
         setShowRegisterForm(false);
     };
 
-    return (<>
+    return (
+        <div className="bg-gray-200">
         <NavBar />
         <div className="flex justify-center items-start h-screen pt-20">
             <div className="w-full max-w-xs">
@@ -51,7 +52,7 @@ const LoginPage = () => {
                 )}
             </div>
         </div>
-    </>);
+    </div>);
 };
 
 export default LoginPage;

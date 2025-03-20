@@ -27,6 +27,7 @@ export function SetCurrentUserJwt(jwt: string) : void {
     const user = new User({
         id: payload.id,
         name: payload.name,
+        email: payload.email,
         JWT: jwt
     });
 
@@ -41,4 +42,8 @@ export function SetCurrentUser(user : User | null) : void {
 
     localStorage.setItem(localStorageKeys.CurrentUser, JSON.stringify(user));
     return;
+}
+
+export function ClearCurrentUser() : void {
+    localStorage.removeItem(localStorageKeys.CurrentUser);
 }

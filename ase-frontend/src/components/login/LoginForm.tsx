@@ -1,7 +1,10 @@
 import React from "react";
 import { SetCurrentUserJwt } from "../../utils/storageWrapper.ts";
+import {useNavigate} from "react-router-dom";
 
 function LoginForm() {
+    const navigate = useNavigate();
+
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -21,7 +24,8 @@ function LoginForm() {
         await fetch("http://localhost:3000/auth", requestOptions).then( async response => {
             const json = await response.json();
             console.log(json);
-            SetCurrentUserJwt(json.JWT)
+            SetCurrentUserJwt(json.JWT);
+            navigate("/");
         });
     };
 

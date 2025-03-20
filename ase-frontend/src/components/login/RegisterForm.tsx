@@ -1,6 +1,9 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
+import {SetCurrentUserJwt} from "../../utils/storageWrapper.ts";
 
 function RegisterForm() {
+    const navigate = useNavigate();
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -21,6 +24,24 @@ function RegisterForm() {
         await fetch("http://localhost:3000/user", requestOptions).then( async response => {
             const json = await response.json();
             console.log(json);
+        });
+
+        const loginDto = {
+            email: dto.email,
+            password: dto.password
+        };
+
+        const loginRequestOptions = {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json'},
+            body: JSON.stringify(loginDto),
+        };
+
+        await fetch("http://localhost:3000/auth", loginRequestOptions).then( async response => {
+            const json = await response.json();
+            console.log(json);
+            SetCurrentUserJwt(json.JWT);
+            navigate("/");
         });
     };
 
