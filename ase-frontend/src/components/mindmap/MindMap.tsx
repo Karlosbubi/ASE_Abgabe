@@ -134,6 +134,12 @@ const MindMap = () => {
                     >
                         Speichern
                     </button>
+                    <button
+                        onClick={() => useStore.getState().loadMindMap()}
+                        className="bg-blue-300 px-2 py-1 rounded text-sm"
+                    >
+                        Laden (Dummy)
+                    </button>
                 </div>
             </Panel>
         </ReactFlow>

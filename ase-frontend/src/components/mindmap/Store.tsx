@@ -91,15 +91,46 @@ const useStore = create<RFState>((set, get) => ({
     },
 
     loadMindMap: () => {
-        const nodesJSON = localStorage.getItem('mindmap-nodes');
-        const edgesJSON = localStorage.getItem('mindmap-edges');
+        const hardcodedNodes = [
+            {
+                id: 'root',
+                type: 'mindmap',
+                data: { label: 'Hauptthema' },
+                position: { x: 0, y: 0 },
+            },
+            {
+                id: 'node-1',
+                type: 'mindmap',
+                data: { label: 'Unterthema A' },
+                position: { x: 150, y: 100 },
+                parentId: 'root',
+            },
+            {
+                id: 'node-2',
+                type: 'mindmap',
+                data: { label: 'Unterthema B' },
+                position: { x: -150, y: 100 },
+                parentId: 'root',
+            },
+        ];
 
-        if (nodesJSON && edgesJSON) {
-            set({
-                nodes: JSON.parse(nodesJSON),
-                edges: JSON.parse(edgesJSON),
-            });
-        }
+        const hardcodedEdges = [
+            {
+                id: 'edge-1',
+                source: 'root',
+                target: 'node-1',
+            },
+            {
+                id: 'edge-2',
+                source: 'root',
+                target: 'node-2',
+            },
+        ];
+
+        set({
+            nodes: hardcodedNodes,
+            edges: hardcodedEdges,
+        });
     },
 }));
 
