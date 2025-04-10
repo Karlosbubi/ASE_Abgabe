@@ -19,6 +19,8 @@ export type RFState = {
     onEdgesChange: OnEdgesChange;
     addChildNode: (parentNode: Node, position: XYPosition) => void;
     updateNodeLabel: (nodeId: string, label: string) => void;
+    loadMindMap: () => void;
+    saveMindMap: () => void;
 };
 
 const useStore = create<RFState>((set, get) => ({
@@ -78,6 +80,26 @@ const useStore = create<RFState>((set, get) => ({
                 return node;
             }),
         });
+    },
+    saveMindMap: () => {
+        const { nodes, edges } = get();
+        const data = {
+            nodes,
+            edges,
+        };
+        console.log('📦 Mindmap JSON:', JSON.stringify(data, null, 2));
+    },
+
+    loadMindMap: () => {
+        const nodesJSON = localStorage.getItem('mindmap-nodes');
+        const edgesJSON = localStorage.getItem('mindmap-edges');
+
+        if (nodesJSON && edgesJSON) {
+            set({
+                nodes: JSON.parse(nodesJSON),
+                edges: JSON.parse(edgesJSON),
+            });
+        }
     },
 }));
 

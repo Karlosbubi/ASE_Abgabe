@@ -125,7 +125,17 @@ const MindMap = () => {
             fitView
         >
             <Controls showInteractive={false} />
-            <Panel position="top-left">React Flow Mind Map</Panel>
+            <Panel position="top-left">
+                <div className="flex flex-col gap-2">
+                    <div>React Flow Mind Map</div>
+                    <button
+                        onClick={() => useStore.getState().saveMindMap()}
+                        className="bg-orange-300 px-2 py-1 rounded text-sm"
+                    >
+                        Speichern
+                    </button>
+                </div>
+            </Panel>
         </ReactFlow>
     );
 };
