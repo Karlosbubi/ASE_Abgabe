@@ -1,77 +1,132 @@
-import { useEffect, useCallback } from "react";
-import ReactFlow, {
-    addEdge,
-    Background,
+import {
+    ReactFlow,
     Controls,
-    MiniMap,
-    useEdgesState,
-    useNodesState,
-    Node,
-    Edge,
-    NodeChange,
-    OnConnect,
-} from "reactflow";
-import "reactflow/dist/style.css";
+    Panel,
+    useStoreApi,
+    useReactFlow,
+    ConnectionLineType,
+    type NodeOrigin,
+    type InternalNode,
+    type OnConnectEnd,
+    type OnConnectStart,
+} from '@xyflow/react';
+import { useShallow } from 'zustand/shallow';
+import {useCallback, useRef} from "react";
 
-interface MindMapProps {
-    nodes: Node[];
-    setNodes: React.Dispatch<React.SetStateAction<Node[]>>;
-    setSelectedNodeId: React.Dispatch<React.SetStateAction<string | null>>;
-}
+import MindMapNode from './MindMapNode.tsx';
+import MindMapEdge from './MindMapEdge.tsx';
+import useStore, { type RFState } from './Store.tsx';
 
-const MindMap = ({ nodes, setNodes, setSelectedNodeId }: MindMapProps) => {
-    const [nodesState, setNodesState] = useNodesState(nodes);
-    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+import '@xyflow/react/dist/style.css';
 
-    useEffect(() => {
-        setNodesState(nodes);
-    }, [nodes]);
+const selector = (state: RFState) => ({
+    nodes: state.nodes,
+    edges: state.edges,
+    onNodesChange: state.onNodesChange,
+    onEdgesChange: state.onEdgesChange,
+    addChildNode: state.addChildNode,
+});
 
-    const onConnect: OnConnect = useCallback(
-        (params) => {
-            const newEdge: Edge = {
-                id: `${params.source}-${params.target}`,
-                source: params.source ?? "",
-                target: params.target ?? "",
-                sourceHandle: params.sourceHandle,
-                targetHandle: params.targetHandle,
-                type: "default",
-            };
-            setEdges((eds) => addEdge(newEdge, eds));
+const nodeTypes = {
+    mindmap: MindMapNode,
+};
+
+const edgeTypes = {
+    mindmap: MindMapEdge,
+};
+
+const nodeOrigin: NodeOrigin = [0.5, 0.5];
+const connectionLineStyle = { stroke: '#F6AD55', strokeWidth: 3 };
+const defaultEdgeOptions = { style: connectionLineStyle, type: 'mindmap' };
+
+const MindMap = () => {
+    const { nodes, edges, onNodesChange, onEdgesChange, addChildNode } = useStore(
+        useShallow(selector),
+    );
+    const connectingNodeId = useRef<string | null>(null);
+    const store = useStoreApi();
+    const { screenToFlowPosition } = useReactFlow();
+
+    const getChildNodePosition = (
+        event: MouseEvent | TouchEvent,
+        parentNode?: InternalNode,
+    ) => {
+        const { domNode } = store.getState();
+
+        if (
+            !domNode ||
+            // we need to check if these properties exist, because when a node is not initialized yet,
+            // it doesn't have a positionAbsolute nor a width or height
+            !parentNode?.internals.positionAbsolute ||
+            !parentNode?.measured.width ||
+            !parentNode?.measured.height
+        ) {
+            return;
+        }
+
+        const isTouchEvent = 'touches' in event;
+        const x = isTouchEvent ? event.touches[0].clientX : event.clientX;
+        const y = isTouchEvent ? event.touches[0].clientY : event.clientY;
+        // we need to remove the wrapper bounds, in order to get the correct mouse position
+        const panePosition = screenToFlowPosition({
+            x,
+            y,
+        });
+
+        // we are calculating with positionAbsolute here because child nodes are positioned relative to their parent
+        return {
+            x:
+                panePosition.x -
+                parentNode.internals.positionAbsolute.x +
+                parentNode.measured.width / 2,
+            y:
+                panePosition.y -
+                parentNode.internals.positionAbsolute.y +
+                parentNode.measured.height / 2,
+        };
+    };
+
+
+    const onConnectStart: OnConnectStart = useCallback((_, { nodeId }) => {
+        connectingNodeId.current = nodeId;
+    }, []);
+
+    const onConnectEnd: OnConnectEnd = useCallback(
+        (event) => {
+            const { nodeLookup } = store.getState();
+            const targetIsPane = (event.target as Element).classList.contains('react-flow__pane');
+
+            if (targetIsPane && connectingNodeId.current) {
+                const parentNode = nodeLookup.get(connectingNodeId.current);
+                const childNodePosition = getChildNodePosition(event, parentNode);
+
+                if (parentNode && childNodePosition) {
+                    addChildNode(parentNode, childNodePosition);
+                }
+            }
         },
-        []
+        [getChildNodePosition],
     );
 
-    const onNodeClick = (_event: React.MouseEvent, node: Node) => {
-        setSelectedNodeId(node.id);
-    };
-
-    const handleNodeChange = (changes: NodeChange[]) => {
-        setNodesState((prevNodes) =>
-            prevNodes.map((node) => {
-                const change = changes.find((c) => 'id' in c && c.id === node.id);
-                return change ? { ...node, ...change } : node;
-            })
-        );
-        setNodes(nodesState);
-    };
-
     return (
-        <div style={{ width: "100%", height: "500px", border: "1px solid gray" }}>
-            <ReactFlow
-                nodes={nodesState}
-                edges={edges}
-                onNodesChange={handleNodeChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                onNodeClick={onNodeClick}
-                fitView
-            >
-                <MiniMap />
-                <Controls />
-                <Background />
-            </ReactFlow>
-        </div>
+        <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
+            onConnectStart={onConnectStart}
+            onConnectEnd={onConnectEnd}
+            nodeOrigin={nodeOrigin}
+            defaultEdgeOptions={defaultEdgeOptions}
+            connectionLineStyle={connectionLineStyle}
+            connectionLineType={ConnectionLineType.Straight}
+            fitView
+        >
+            <Controls showInteractive={false} />
+            <Panel position="top-left">React Flow Mind Map</Panel>
+        </ReactFlow>
     );
 };
 
