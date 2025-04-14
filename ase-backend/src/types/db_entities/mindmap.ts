@@ -2,6 +2,7 @@ import { User } from './user';
 
 export type Mindmap = {
   id: number;
+  title: string;
   owner: number;
   graph: object;
 };

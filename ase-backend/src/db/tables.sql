@@ -8,6 +8,7 @@ create table if not exists mindmap_user(
 
 create table if not exists mindmap (
     id serial primary key,
+    title text,
     owner int not null,
     graph jsonb not null,
     foreign key (owner) references mindmap_user(id) on delete cascade
