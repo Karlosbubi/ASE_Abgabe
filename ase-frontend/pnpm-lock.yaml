@@ -13,7 +13,7 @@ importers:
         version: 4.0.6(vite@6.0.6(jiti@2.4.2)(lightningcss@1.29.1))
       '@xyflow/react':
         specifier: ^12.5.5
-        version: 12.5.5(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 12.5.5(@db_entities/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       classcat:
         specifier: ^5.0.5
         version: 5.0.5
@@ -40,7 +40,7 @@ importers:
         version: 4.0.6
       zustand:
         specifier: ^5.0.3
-        version: 5.0.3(@types/react@18.3.18)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
+        version: 5.0.3(@db_entities/react@18.3.18)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
     devDependencies:
       '@eslint/js':
         specifier: ^9.15.0
@@ -50,7 +50,7 @@ importers:
         version: 18.3.18
       '@types/react-dom':
         specifier: ^18.3.1
-        version: 18.3.5(@types/react@18.3.18)
+        version: 18.3.5(@db_entities/react@18.3.18)
       '@vitejs/plugin-react-swc':
         specifier: ^3.5.0
         version: 3.7.2(vite@6.0.6(jiti@2.4.2)(lightningcss@1.29.1))
@@ -1752,9 +1752,9 @@ snapshots:
       classcat: 5.0.5
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      zustand: 4.5.6(@types/react@18.3.18)(react@18.3.1)
+      zustand: 4.5.6(@db_entities/react@18.3.18)(react@18.3.1)
     transitivePeerDependencies:
-      - '@types/react'
+      - '@db_entities/react'
       - immer
 
   '@xyflow/system@0.0.55':

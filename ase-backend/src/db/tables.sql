@@ -1,22 +1,26 @@
-create table if not exists mindmap_node (
-    id serial primary key,
-    title text,
-    content text,
-    parent int,
-    foreign key (parent) references mindmap_node(id)
-);
-
 create table if not exists "user" (
     id serial primary key,
-    name text,
-    email text,
-    password text
+    name text not null,
+    email text not null,
+    password text not null,
+    isAdmin bool not null
 );
 
-create table if not exists mindmaps (
+create table if not exists mindmap (
     id serial primary key,
     owner int not null,
-    start_node int not null,
-    foreign key (owner) references "user"(id),
-    foreign key (start_node) references mindmap_node(id)
+    graph jsonb not null,
+    foreign key (owner) references "user"(id) on delete cascade
+);
+
+create table if not exists mindmap_rights (
+      "user" int not null,
+      mindmap int not null,
+      can_read bool not null,
+      can_write bool not null,
+      foreign key ("user") references "user"(id) on delete cascade,
+      foreign key (mindmap) references mindmap(id) on delete cascade,
+      primary key ("user", mindmap),
+      constraint write_implies_read
+          check (not (can_write = true and can_read = false))
 );
