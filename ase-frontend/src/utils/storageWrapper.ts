@@ -18,7 +18,7 @@ interface CustomJwtPayload extends JwtPayload {
     id: number;
     name: string;
     email: string;
-    // TODO Roles
+    isAdmin: boolean;
 }
 
 export function SetCurrentUserJwt(jwt: string) : void {

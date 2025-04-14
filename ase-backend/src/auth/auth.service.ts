@@ -1,31 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { DatabaseService } from '../db/database.service';
+import { User } from '../types/db_entities/user';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private prisma: PrismaService,
-        private jwtService: JwtService
-    ){}
+  constructor(
+    private db: DatabaseService,
+    private jwtService: JwtService,
+  ) {}
 
-    async login(email: string, password: string) {
-        const user = await this.prisma.user.findUnique({
-            where: {
-                email: email, 
-                passwordHash: password
-            }
-        });
-
-        const payload = {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            // TODO Roles
-        }
-
-        return {
-            JWT: await this.jwtService.signAsync(payload)
-        }
+  async login(email: string, password: string) {
+    const user: User = await this.db.get_user_by_email(email);
+    if (!user) {
+      throw new UnauthorizedException();
     }
+    if (password !== user.password) {
+      throw new UnauthorizedException();
+    }
+
+    const payload = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    };
+
+    return {
+      JWT: await this.jwtService.signAsync(payload),
+    };
+  }
 }

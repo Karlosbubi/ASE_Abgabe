@@ -4,15 +4,12 @@ import { AppService } from './app.service';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
 import { UserController } from './user/user.controller';
-import { PrismaService } from './prisma/prisma.service';
-import { MindmapNodeController } from './mindmap-node/mindmap-node.controller';
-import { MindmapNodeService } from './mindmap-node/mindmap-node.service';
 import { AuthModule } from './auth/auth.module';
+import { DatabaseModule } from './db/database.module';
 
 @Module({
-  imports: [UserModule, AuthModule],
-  controllers: [AppController, UserController, MindmapNodeController],
-  providers: [AppService, UserService, PrismaService, MindmapNodeService],
+  imports: [UserModule, DatabaseModule, AuthModule],
+  controllers: [AppController, UserController],
+  providers: [AppService, UserService],
 })
-
 export class AppModule {}

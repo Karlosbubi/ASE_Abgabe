@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../types/dto/CreateUserDto';
 import { UpdateUserDto } from '../types/dto/UpdateUserDto';
-import { PrismaService } from '../prisma/prisma.service';
-import { DatabaseService } from '../db/DatabaseService';
+import { DatabaseService } from '../db/database.service';
 import { with_ } from '../utils/with';
 
 @Injectable()
