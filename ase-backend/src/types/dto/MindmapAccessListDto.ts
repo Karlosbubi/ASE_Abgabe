@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Mindmap } from '../db_entities/mindmap';
+import { Mindmap, MindmapList } from '../db_entities/mindmap';
 
 export class MindmapAccessListDto {
   @ApiProperty()
-  own: (number | Mindmap)[];
+  own: MindmapList;
   @ApiProperty()
-  edit: (number | Mindmap)[];
+  edit: MindmapList;
   @ApiProperty()
-  read_only: (number | Mindmap)[];
+  read_only: MindmapList;
 }

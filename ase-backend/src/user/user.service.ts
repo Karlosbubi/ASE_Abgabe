@@ -17,15 +17,15 @@ export class UserService {
       throw new Error('Data must must be complete');
     }
 
-    const user = this.db.create_user(createUserDto);
-    return user; //with_(user, { password: '*****' }); // TODO ceonsor password
+    const user = await this.db.create_user(createUserDto);
+    return with_(user, { password: '*****' });
   }
 
   //Argument `where` of type UserWhereUniqueInput needs at least one of `id` arguments. Available options are marked with ?.
   async findById(id: number) {
     console.log(id);
-    const user = this.db.get_user_by_id(id);
-    return user; // with_(user, { password: '*****' }); // TODO censor password
+    const user = await this.db.get_user_by_id(id);
+    return with_(user, { password: '*****' });
   }
 
   async updateById(id: number, updateUserDto: UpdateUserDto) {
@@ -38,8 +38,8 @@ export class UserService {
       throw new Error('Data must be complete');
     }
 
-    const user = this.db.update_user_by_id(id, updateUserDto);
-    return user; //with_(user, { password: '*****' }); // TODO censor password
+    const user = await this.db.update_user_by_id(id, updateUserDto);
+    return with_(user, { password: '*****' });
   }
 
   async deleteById(id: number) {
