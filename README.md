@@ -1,6 +1,7 @@
 # ASE_Abgabe
 
-[![Build status](<https://teamcity.brunner.codes/guestAuth/app/rest/builds/buildType:(id:UniProjekte_Build)/statusIcon>)](https://teamcity.brunner.codes/buildConfiguration/UniProjekte_Build)
+[![Build status](https://teamcity.brunner.codes/app/rest/builds/buildType:id:AseAbgabe_Build/statusIcon.svg)](https://teamcity.brunner.codes/buildConfiguration/AseAbgabe_Build)
+
 
 ## Getting Started
 
