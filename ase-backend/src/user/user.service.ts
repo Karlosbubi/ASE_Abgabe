@@ -18,14 +18,14 @@ export class UserService {
     }
 
     const user = this.db.create_user(createUserDto);
-    return with_(user, { password: '*****' });
+    return user; //with_(user, { password: '*****' }); // TODO ceonsor password
   }
 
   //Argument `where` of type UserWhereUniqueInput needs at least one of `id` arguments. Available options are marked with ?.
   async findById(id: number) {
     console.log(id);
     const user = this.db.get_user_by_id(id);
-    return with_(user, { password: '*****' });
+    return user; // with_(user, { password: '*****' }); // TODO censor password
   }
 
   async updateById(id: number, updateUserDto: UpdateUserDto) {
@@ -39,7 +39,7 @@ export class UserService {
     }
 
     const user = this.db.update_user_by_id(id, updateUserDto);
-    return with_(user, { password: '*****' });
+    return user; //with_(user, { password: '*****' }); // TODO censor password
   }
 
   async deleteById(id: number) {

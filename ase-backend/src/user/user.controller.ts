@@ -4,13 +4,17 @@ import {
   Delete,
   Get,
   Patch,
-  Post, Req, UseGuards,
+  Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from '../types/dto/CreateUserDto';
 import { UserService } from './user.service';
 import { UpdateUserDto } from '../types/dto/UpdateUserDto';
 import { AuthGuard } from '../auth/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}

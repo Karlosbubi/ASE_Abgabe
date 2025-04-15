@@ -3,7 +3,8 @@ create table if not exists mindmap_user(
     name text not null,
     email text not null,
     password text not null,
-    isAdmin bool not null
+    isAdmin bool not null,
+    constraint unique_email unique (email)
 );
 
 create table if not exists mindmap (

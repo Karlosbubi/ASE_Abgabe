@@ -13,12 +13,15 @@ import { MindmapService } from './mindmap.service';
 import { CreateMindmapDto } from '../types/dto/CreateMindmapDto';
 import { AuthGuard } from '../auth/auth.guard';
 import { Mindmap } from '../types/db_entities/mindmap';
+import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('mindmap')
 export class MindmapController {
   constructor(private readonly mindmapService: MindmapService) {}
 
   @Post()
+  @ApiBody({ type: CreateMindmapDto })
   @UseGuards(AuthGuard)
   create(@Req() request, @Body() createMindmapDto: CreateMindmapDto) {
     return this.mindmapService.create(request['user'], createMindmapDto);
