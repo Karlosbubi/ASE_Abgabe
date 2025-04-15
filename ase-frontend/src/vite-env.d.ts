@@ -1,1 +1,1 @@
-/// <reference db_entities="vite/client" />
+/// <reference types="vite/client" />
