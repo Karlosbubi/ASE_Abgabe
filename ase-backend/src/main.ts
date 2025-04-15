@@ -8,6 +8,14 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Mindmap')
     .addBearerAuth()
+    .addGlobalResponse({
+      status: 500,
+      description: 'Internal server error',
+    })
+    .addGlobalResponse({
+      status: 403,
+      description: 'Unauthorized, remember to include your Bearer Token',
+    })
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
