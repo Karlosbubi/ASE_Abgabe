@@ -216,6 +216,8 @@ export class DatabaseService {
     }
   }
 
+  // MINDMAP RIGHTS
+
   async get_mindmap_access(
     mindmap: number | Mindmap,
     user: number | User,
@@ -229,6 +231,35 @@ export class DatabaseService {
     const query_text =
       'select mindmap_user, mindmap, can_read, can_write from mindmap_rights where mindmap_user = $1 and mindmap = $2;';
     const query_values = [user_id, mindmap_id];
+
+    try {
+      const result = await client.query<MindmapRights>(
+        query_text,
+        query_values,
+      );
+      return result.rows[0];
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      await client.end();
+    }
+  }
+
+  async set_mindmap_access(
+    mindmap: number | Mindmap,
+    user: number | User,
+    read: boolean,
+    write: boolean,
+  ): Promise<MindmapRights> {
+    const user_id = typeof user === 'number' ? user : user.id;
+    const mindmap_id = typeof mindmap === 'number' ? mindmap : mindmap.id;
+
+    const client = new Client({ connectionString: this.connection_string });
+    await client.connect();
+
+    const query_text =
+      'insert into mindmap_rights(mindmap_user, mindmap, can_read, can_write) values ($1, $2, $3, $4) on conflict (mindmap, mindmap_user) do update set can_read = $3, can_write = $4;';
+    const query_values = [user_id, mindmap_id, read || write, write];
 
     try {
       const result = await client.query<MindmapRights>(
