@@ -156,16 +156,16 @@ export class DatabaseService {
 
     try {
       const result_own = await client.query<Mindmap>(
-        'select id from mindmap where owner = $1;',
+        'select id, title from mindmap where owner = $1;',
         [user_id],
       );
       const result_edit = await client.query<Mindmap>(
-        'select m.id from mindmap as m join mindmap_rights as r on r.mindmap == m.id ' +
+        'select m.id, title from mindmap as m join mindmap_rights as r on r.mindmap = m.id ' +
           'where r.mindmap_user = $1 and r.can_write = true;',
         [user_id],
       );
       const result_read = await client.query<Mindmap>(
-        'select m.id from mindmap as m join mindmap_rights as r on r.mindmap == m.id ' +
+        'select m.id, title from mindmap as m join mindmap_rights as r on r.mindmap = m.id ' +
           'where r.mindmap_user = $1 and r.can_write = false and r.can_read = true;',
         [user_id],
       );
