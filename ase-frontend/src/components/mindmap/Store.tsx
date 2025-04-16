@@ -35,8 +35,15 @@ const useStore = create<RFState>((set, get) => ({
     ],
     edges: [],
     onNodesChange: (changes: NodeChange[]) => {
+        const filteredChanges = changes.filter((change) => {
+            if (change.type === 'remove' && change.id === 'root') {
+                return false;
+            }
+            return true;
+        });
+
         set({
-            nodes: applyNodeChanges(changes, get().nodes),
+            nodes: applyNodeChanges(filteredChanges, get().nodes),
         });
     },
     onEdgesChange: (changes: EdgeChange[]) => {
