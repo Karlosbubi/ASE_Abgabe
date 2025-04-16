@@ -14,6 +14,7 @@
     "@tanstack/react-query": "^5.74.3",
     "@xyflow/react": "^12.5.5",
     "classcat": "^5.0.5",
+    "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.482.0",
     "nanoid": "^5.1.5",
