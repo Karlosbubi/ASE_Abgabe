@@ -121,7 +121,7 @@ const MindMap = () => {
             nodeOrigin={nodeOrigin}
             defaultEdgeOptions={defaultEdgeOptions}
             connectionLineStyle={connectionLineStyle}
-            connectionLineType={ConnectionLineType.Straight}
+            connectionLineType={ConnectionLineType.Bezier}
             fitView
         >
             <Controls showInteractive={false} />

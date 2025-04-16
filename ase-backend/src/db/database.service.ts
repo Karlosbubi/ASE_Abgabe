@@ -116,7 +116,7 @@ export class DatabaseService {
     await client.connect();
 
     const query_text =
-      'insert into mindmap(owner, title, graph) values($1, $2) returning *;';
+      'insert into mindmap(owner, title, graph) values($1, $2, $3) returning *;';
     const query_values = [user_id, mindmap.title, json_text];
 
     try {

@@ -11,6 +11,7 @@ import {
 } from '@xyflow/react';
 import { create } from 'zustand';
 import { nanoid } from 'nanoid/non-secure';
+import {GetCurrentUser} from "../../utils/storageWrapper.ts";
 
 export type RFState = {
     nodes: Node[];
@@ -81,13 +82,24 @@ const useStore = create<RFState>((set, get) => ({
             }),
         });
     },
-    saveMindMap: () => {
+    saveMindMap: async () => {
         const { nodes, edges } = get();
         const data = {
-            nodes,
-            edges,
+            title : "Title TODO",
+            graph : {
+                nodes,
+                edges
+            }
         };
         console.log('📦 Mindmap JSON:', JSON.stringify(data, null, 2));
+        const user = GetCurrentUser();
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json', 'Authorization': 'Bearer ' + user!.JWT},
+            body: JSON.stringify(data),
+        };
+
+        await fetch("http://localhost:3000/mindmap", requestOptions)
     },
 
     loadMindMap: () => {
