@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HomePage from "./components/HomePage.tsx";
 import LoginPage from "./components/login/LoginPage.tsx";
 import Dashboard from "./components/dashboard/Dashboard.tsx";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 const queryClient = new QueryClient();
 

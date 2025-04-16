@@ -16,7 +16,7 @@ function MindmapPage() {
         "
             >
                 <p className="text-center font-semibold mb-2">Mindmap List</p>
-
+                <MindmapList />
             </div>
 
             {/* Main Content */}
