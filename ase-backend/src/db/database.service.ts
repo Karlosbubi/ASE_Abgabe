@@ -37,7 +37,7 @@ export class DatabaseService {
   async get_user_by_id(user_id: number): Promise<User> {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
-    const query_text = `select id, name, email, password, isAdmin from mindmap_user where user_id = $1;`;
+    const query_text = `select id, name, email, password, isAdmin from mindmap_user where id = $1;`;
     try {
       const res = await client.query<User>(query_text, [user_id]);
       return res.rows[0];
