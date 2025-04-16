@@ -7,7 +7,7 @@ export class Mindmap {
   @ApiProperty()
   title: string;
   @ApiProperty()
-  owner: number;
+  owner: number | User;
   @ApiProperty()
   graph: object;
 }

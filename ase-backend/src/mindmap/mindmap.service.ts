@@ -21,7 +21,7 @@ export class MindmapService {
     }
 
     const rights = await this.db.get_mindmap_access(id, user_id);
-    if (rights.can_read || rights.can_write) {
+    if (rights.can_read) {
       return mindmap;
     }
 
