@@ -4,6 +4,7 @@ import useStore from "./Store.tsx";
 import { Trash2, Check, X } from 'lucide-react';
 import { useState } from 'react';
 import toast from "react-hot-toast"
+import {queryClient} from "../../utils/queryClient.ts";
 
 type Entry = {
     id: number;
@@ -128,7 +129,7 @@ function MindmapList() {
             if (!response.ok) {
                 throw new Error(`An error occurred while trying to delete: ${response.status}`);
             }
-
+            await queryClient.invalidateQueries({queryKey: [`get_mindmap_list_${new Date().getMonth()}`]});
             toast.dismiss();
             toast.success("Mindmap deleted!");
 

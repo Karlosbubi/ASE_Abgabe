@@ -13,6 +13,7 @@ import { create } from 'zustand';
 import { nanoid } from 'nanoid/non-secure';
 import {GetCurrentUser} from "../../utils/storageWrapper.ts";
 import toast from 'react-hot-toast';
+import { queryClient } from '../../utils/queryClient.ts';
 
 export type RFState = {
     nodes: Node[];
@@ -138,11 +139,11 @@ const useStore = create<RFState>((set, get) => ({
             const result = await response.json();
             const newMindMapId = result?.id;
 
-            toast.dismiss();
-            toast.success("Mindmap created successfully!");
-
             if (typeof newMindMapId === 'number') {
                 get().loadMindMap(newMindMapId);
+                await queryClient.invalidateQueries({queryKey: [`get_mindmap_list_${new Date().getMonth()}`]});
+                toast.dismiss();
+                toast.success("Mindmap created successfully!");
             } else {
                 toast.error("Created mindmap response was invalid.");
                 console.error("Invalid response format:", result);
@@ -185,6 +186,7 @@ const useStore = create<RFState>((set, get) => ({
 
         try {
             await fetch("http://localhost:3000/mindmap", requestOptions);
+            await queryClient.invalidateQueries({queryKey: [`get_mindmap_list_${new Date().getMonth()}`]});
             toast.dismiss()
             toast.success("Mindmap saved successfully!");
         } catch (error) {
