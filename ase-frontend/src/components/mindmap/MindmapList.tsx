@@ -1,6 +1,9 @@
 import { GetCurrentUser } from "../../utils/storageWrapper.ts";
 import { useQuery } from "react-query";
 import useStore from "./Store.tsx";
+import { Trash2, Check, X } from 'lucide-react';
+import { useState } from 'react';
+import toast from "react-hot-toast"
 
 type Entry = {
     id: number;
@@ -38,35 +41,159 @@ function MindmapList() {
         }
     });
 
+    const MindmapCard = ({
+                             map,
+                             onClick,
+                             onConfirmDelete,
+                         }: {
+        map: Entry;
+        onClick: () => void;
+        onConfirmDelete: (id: number) => void;
+    }) => {
+        const [hovered, setHovered] = useState(false);
+        const [confirmingDelete, setConfirmingDelete] = useState(false);
+
+        return (
+            <div
+                onClick={!confirmingDelete ? onClick : undefined}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => {
+                    setHovered(false);
+                    setConfirmingDelete(false); // reset on mouse leave
+                }}
+                className="relative flex items-center justify-between bg-white border border-gray-300 rounded-md px-3 py-2 shadow-sm hover:shadow-md cursor-pointer transition duration-200 group"
+            >
+            <span className="text-sm font-medium text-black truncate">
+                {map.title}
+            </span>
+
+                {hovered && (
+                    <div
+                        className="flex items-center gap-2 ml-2"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {!confirmingDelete ? (
+                            <button
+                                onClick={() => setConfirmingDelete(true)}
+                                className="text-red-500 hover:text-red-700"
+                            >
+                                <Trash2 size={14} />
+                            </button>
+                        ) : (
+                            <>
+                                <button
+                                    onClick={() => onConfirmDelete(map.id)}
+                                    className="text-green-600 hover:text-green-800"
+                                >
+                                    <Check size={14} />
+                                </button>
+                                <button
+                                    onClick={() => setConfirmingDelete(false)}
+                                    className="text-gray-500 hover:text-gray-700"
+                                >
+                                    <X size={14} />
+                                </button>
+                            </>
+                        )}
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     const handleClick = async (id: number) => {
         await loadMindMap(id);
+    };
+
+
+    const handleDeleteMindmap = async (id: number) => {
+        const user = GetCurrentUser();
+
+        if (!user?.JWT) {
+            toast.error("User unauthorized.");
+            return;
+        }
+
+        toast.loading("Deleting mindmap...");
+
+        try {
+            const response = await fetch(`http://localhost:3000/mindmap/${id}`, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.JWT,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`An error occurred while trying to delete: ${response.status}`);
+            }
+
+            toast.dismiss();
+            toast.success("Mindmap deleted!");
+
+        } catch (error: unknown) {
+            toast.dismiss();
+            console.error("Error:", error);
+
+            if (error instanceof Error) {
+                toast.error(`Deleting failed: ${error.message}`);
+            } else {
+                toast.error("Deleting failed.");
+            }
+        }
     };
 
     if (isLoading || !data) return <p>Loading mindmaps...</p>;
     if (error) return <p>{error.message}</p>;
 
     return (
-        <div>
-            <p><b>My Mindmaps</b></p>
-            {data.own.map((m) => (
-                <p key={m.id} onClick={() => handleClick(m.id)} style={{ cursor: 'pointer', color: 'blue' }}>
-                    {m.title}
-                </p>
-            ))}
+        <div className="space-y-4 p-4">
+            <div>
+                <p className="font-semibold text-lg mb-2">My Mindmaps</p>
+                <div className="space-y-2">
+                    {data.own.map((m) => (
+                        <MindmapCard
+                            key={m.id}
+                            map={m}
+                            onClick={() => handleClick(m.id)}
+                            onConfirmDelete={() => handleDeleteMindmap(m.id)}
+                        />
+                    ))}
+                </div>
+            </div>
 
-            <p><b>Shared With Me</b></p>
-            {data.edit.map((m) => (
-                <p key={m.id} onClick={() => handleClick(m.id)} style={{ cursor: 'pointer', color: 'blue' }}>
-                    {m.title}
-                </p>
-            ))}
+            <div>
+                <p className="font-semibold text-lg mb-2">Shared With Me</p>
+                <div className="space-y-2">
+                    {data.edit.map((m) => (
+                        <MindmapCard
+                            key={m.id}
+                            map={m}
+                            onClick={() => handleClick(m.id)}
+                            onConfirmDelete={(id) => {
+                                console.log("Deleting mindmap with ID:", id);
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
 
-            <p><b>Read Only</b></p>
-            {data.read_only.map((m) => (
-                <p key={m.id} onClick={() => handleClick(m.id)} style={{ cursor: 'pointer', color: 'blue' }}>
-                    {m.title}
-                </p>
-            ))}
+            <div>
+                <p className="font-semibold text-lg mb-2">Read Only</p>
+                <div className="space-y-2">
+                    {data.read_only.map((m) => (
+                        <MindmapCard
+                            key={m.id}
+                            map={m}
+                            onClick={() => handleClick(m.id)}
+                            onConfirmDelete={(id) => {
+                                console.log("Deleting mindmap with ID:", id);
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }
