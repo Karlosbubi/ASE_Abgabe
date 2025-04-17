@@ -133,7 +133,7 @@ export class DatabaseService {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
 
-    const query_text = 'select id, owner, graph from mindmap where id = $1;';
+    const query_text = 'select id, title, owner, graph from mindmap where id = $1;';
     const query_values = [mindmap_id];
 
     try {
