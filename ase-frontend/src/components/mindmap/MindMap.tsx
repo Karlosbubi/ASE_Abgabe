@@ -126,19 +126,18 @@ const MindMap = () => {
         >
             <Controls showInteractive={false} />
             <Panel position="top-left">
-                <div className="flex flex-col gap-2">
-                    <div>React Flow Mind Map</div>
+                <div className="flex flex-col gap-4">
                     <button
-                        onClick={() => useStore.getState().saveMindMap()}
-                        className="bg-orange-300 px-2 py-1 rounded text-sm"
+                        onClick={() => useStore.getState().createMindMap()}
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-base font-medium shadow"
                     >
-                        Speichern
+                        Create
                     </button>
                     <button
-                        onClick={() => useStore.getState().loadMindMap()}
-                        className="bg-blue-300 px-2 py-1 rounded text-sm"
+                        onClick={() => useStore.getState().saveMindMap()}
+                        className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-base font-medium shadow"
                     >
-                        Laden (Dummy)
+                        Save
                     </button>
                 </div>
             </Panel>
