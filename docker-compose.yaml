@@ -7,6 +7,7 @@ services:
       - POSTGRES_PASSWORD=secret
     volumes:
      - db:/var/lib/postgresql/data
+     - ./db_init:/docker-entrypoint-initdb.d
 
   backend:
     build:
