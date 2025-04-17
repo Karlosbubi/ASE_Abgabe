@@ -16,6 +16,7 @@ import {useCallback, useRef} from "react";
 import MindMapNode from './MindMapNode.tsx';
 import MindMapEdge from './MindMapEdge.tsx';
 import useStore, { type RFState } from './Store.tsx';
+import ShareMindmapDialog from "./ShareMindmapDialog.tsx";
 
 import '@xyflow/react/dist/style.css';
 
@@ -139,6 +140,7 @@ const MindMap = () => {
                     >
                         Save
                     </button>
+                    <ShareMindmapDialog />
                 </div>
             </Panel>
         </ReactFlow>
