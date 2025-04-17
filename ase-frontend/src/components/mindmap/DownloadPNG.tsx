@@ -1,5 +1,4 @@
 import {
-    Panel,
     useReactFlow,
     getNodesBounds,
     getViewportForBounds,
@@ -9,7 +8,7 @@ import { toPng } from 'html-to-image';
 function downloadImage(dataUrl : string) {
     const a = document.createElement('a');
 
-    a.setAttribute('download', 'reactflow.png');
+    a.setAttribute('download', 'MindMap.png');
     a.setAttribute('href', dataUrl);
     a.click();
 }
@@ -35,7 +34,7 @@ function DownloadButton() {
 
         const mindmap_element = document.querySelector('.react-flow__viewport')! as HTMLElement;
         toPng(mindmap_element, {
-            backgroundColor: '#1a365d',
+            backgroundColor: '#FFFFFF',
             width: imageWidth,
             height: imageHeight,
             style: {
@@ -47,11 +46,9 @@ function DownloadButton() {
     };
 
     return (
-        <Panel position="top-right">
-            <button className="download-btn" onClick={onClick}>
-                Download Image
+            <button onClick={onClick}>
+                Export as PNG
             </button>
-        </Panel>
     );
 }
 

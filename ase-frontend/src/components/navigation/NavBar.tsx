@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Menu, X} from "lucide-react";
 import {ClearCurrentUser, GetCurrentUser} from "../../utils/storageWrapper.ts";
+import DownloadPNG from "../../components/mindmap/DownloadPNG.tsx";
+import DownloadSVG from "../../components/mindmap/DownloadSVG.tsx";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +13,8 @@ const NavBar = () => {
                 <div className="container mx-auto flex justify-between items-center">
                     <a className="text-xl font-bold" href="/">Mind Board</a>
                     <div className="hidden md:flex space-x-6">
-                        <a href="/wip" className="hover:text-blue-600"> Import </a>
+                        <DownloadPNG/>
+                        <DownloadSVG/>
                         <a href="/login" className="hover:text-blue-600"> Login </a>
                     </div>
                     <button
@@ -34,7 +37,8 @@ const NavBar = () => {
                 <div className="container mx-auto flex justify-between items-center">
                     <a className="text-xl font-bold" href="/">Mind Board</a>
                     <div className="hidden md:flex space-x-6">
-                        <a href="/wip" className="hover:text-blue-600"> Import </a>
+                        <DownloadPNG/>
+                        <DownloadSVG/>
                         <a href="/dashboard" className="hover:text-blue-600"> Dashboard </a>
                         <a href="/" className="hover:text-blue-600" onClick={ClearCurrentUser}> Logout </a>
                     </div>
