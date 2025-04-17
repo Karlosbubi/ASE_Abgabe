@@ -54,10 +54,13 @@ function MindmapList() {
                          }: {
         map: Entry;
         onClick: () => void;
-        onConfirmDelete?: (id: number) => void;  // Mark as optional
+        onConfirmDelete?: (id: number) => void;
     }) => {
         const [hovered, setHovered] = useState(false);
         const [confirmingDelete, setConfirmingDelete] = useState(false);
+        const currentMindMapId = useStore(state => state.currentMindMapId);
+
+        const isSelected = map.id === currentMindMapId;
 
         return (
             <div
@@ -65,15 +68,16 @@ function MindmapList() {
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => {
                     setHovered(false);
-                    setConfirmingDelete(false); // reset on mouse leave
+                    setConfirmingDelete(false);
                 }}
-                className="relative flex items-center justify-between bg-white border border-gray-300 rounded-md px-3 py-2 shadow-sm hover:shadow-md cursor-pointer transition duration-200 group"
+                className={`relative flex items-center justify-between bg-white border rounded-md px-3 py-2 shadow-sm hover:shadow-md cursor-pointer transition duration-200 group
+                ${isSelected ? 'border-2 border-gray-700 bg-gray-100' : 'border-gray-300'}`} // Dunkelgraue Umrandung für die selektierte Karte
             >
-                <span className="text-sm font-medium text-black truncate">
-                    {map.title}
-                </span>
+            <span className="text-sm font-medium text-black truncate">
+                {map.title}
+            </span>
 
-                {hovered && onConfirmDelete && (  // Only show delete buttons if onConfirmDelete is passed
+                {hovered && onConfirmDelete && (
                     <div
                         className="flex items-center gap-2 ml-2"
                         onClick={(e) => e.stopPropagation()}
