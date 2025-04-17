@@ -236,8 +236,8 @@ const useStore = create<RFState>((set, get) => ({
             });
 
             toast.dismiss();
+            toast("Don't forget to save your changes!", { duration: 5000 });
             toast.success(`Mindmap "${data.title}" loaded.`);
-            toast("Don't forget to save your changes!");
         } catch (error: unknown) {
             toast.dismiss();
 
