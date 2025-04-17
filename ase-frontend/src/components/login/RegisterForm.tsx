@@ -1,10 +1,13 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import {SetCurrentUserJwt} from "../../utils/storageWrapper.ts";
+import toast from 'react-hot-toast';
 
 function RegisterForm() {
     const navigate = useNavigate();
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+        toast.loading("Registering...");
+
         e.preventDefault();
 
         const dto = {
@@ -42,6 +45,8 @@ function RegisterForm() {
             console.log(json);
             SetCurrentUserJwt(json.JWT);
             navigate("/");
+            toast.dismiss()
+            toast.success("Registered successfully.");
         });
     };
 

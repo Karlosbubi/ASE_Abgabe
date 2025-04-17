@@ -12,6 +12,7 @@ import {
 import { create } from 'zustand';
 import { nanoid } from 'nanoid/non-secure';
 import {GetCurrentUser} from "../../utils/storageWrapper.ts";
+import toast from 'react-hot-toast';
 
 export type RFState = {
     nodes: Node[];
@@ -90,26 +91,42 @@ const useStore = create<RFState>((set, get) => ({
         });
     },
     saveMindMap: async () => {
+        toast.loading("Saving mindmap...");
+
         const { nodes, edges } = get();
         const data = {
-            title : "Title TODO",
-            graph : {
+            title: "Title TODO",
+            graph: {
                 nodes,
                 edges
             }
         };
         console.log('📦 Mindmap JSON:', JSON.stringify(data, null, 2));
+
         const user = GetCurrentUser();
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type' : 'application/json', 'Authorization': 'Bearer ' + user!.JWT},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + user!.JWT
+            },
             body: JSON.stringify(data),
         };
 
-        await fetch("http://localhost:3000/mindmap", requestOptions)
+        try {
+            await fetch("http://localhost:3000/mindmap", requestOptions);
+            toast.dismiss()
+            toast.success("Mindmap saved successfully!");
+        } catch (error) {
+            console.error(error);
+            toast.dismiss()
+            toast.error("En error occurred while saving your mindmap.");
+        }
     },
 
     loadMindMap: () => {
+        toast.loading("Loading Mindmap...");
+
         const hardcodedNodes = [
             {
                 id: 'root',
@@ -150,6 +167,9 @@ const useStore = create<RFState>((set, get) => ({
             nodes: hardcodedNodes,
             edges: hardcodedEdges,
         });
+
+        toast.dismiss()
+        toast.success("Mindmap geladen (Dummy-Daten)");
     },
 }));
 

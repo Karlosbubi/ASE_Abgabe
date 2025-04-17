@@ -1,11 +1,14 @@
 import React from "react";
 import { SetCurrentUserJwt } from "../../utils/storageWrapper.ts";
 import {useNavigate} from "react-router-dom";
+import toast from 'react-hot-toast';
 
 function LoginForm() {
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
+        toast.loading("Logging you in...")
+
         e.preventDefault();
 
         const dto = {
@@ -26,6 +29,8 @@ function LoginForm() {
             console.log(json);
             SetCurrentUserJwt(json.JWT);
             navigate("/");
+            toast.dismiss()
+            toast.success("Logged in successfully.");
         });
     };
 
