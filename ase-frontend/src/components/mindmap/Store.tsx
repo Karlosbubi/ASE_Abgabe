@@ -21,7 +21,7 @@ export type RFState = {
     onEdgesChange: OnEdgesChange;
     addChildNode: (parentNode: Node, position: XYPosition) => void;
     updateNodeLabel: (nodeId: string, label: string) => void;
-    loadMindMap: () => void;
+    loadMindMap: (id: number) => void;
     saveMindMap: () => void;
 };
 
@@ -124,53 +124,43 @@ const useStore = create<RFState>((set, get) => ({
         }
     },
 
-    loadMindMap: () => {
-        toast.loading("Loading Mindmap...");
+    loadMindMap: async (id: number) => {
+        toast.loading("Lade Mindmap...");
 
-        const hardcodedNodes = [
-            {
-                id: 'root',
-                type: 'mindmap',
-                data: { label: 'Hauptthema' },
-                position: { x: 0, y: 0 },
-            },
-            {
-                id: 'node-1',
-                type: 'mindmap',
-                data: { label: 'Unterthema A' },
-                position: { x: 150, y: 100 },
-                parentId: 'root',
-            },
-            {
-                id: 'node-2',
-                type: 'mindmap',
-                data: { label: 'Unterthema B' },
-                position: { x: -150, y: 100 },
-                parentId: 'root',
-            },
-        ];
+        try {
+            const response = await fetch(`http://localhost:3000/mindmap/${id}`);
+            if (!response.ok) {
+                throw new Error(`Server response: ${response.status}`);
+            }
 
-        const hardcodedEdges = [
-            {
-                id: 'edge-1',
-                source: 'root',
-                target: 'node-1',
-            },
-            {
-                id: 'edge-2',
-                source: 'root',
-                target: 'node-2',
-            },
-        ];
+            const data = await response.json();
 
-        set({
-            nodes: hardcodedNodes,
-            edges: hardcodedEdges,
-        });
+            // Wir erwarten: data.graph = { nodes: [...], edges: [...] }
+            const { nodes, edges } = data.graph || {};
 
-        toast.dismiss()
-        toast.success("Mindmap geladen (Dummy-Daten)");
-    },
+            if (!nodes || !edges) {
+                throw new Error("Mindmap data incomplete.");
+            }
+
+            set({
+                nodes,
+                edges,
+            });
+
+            toast.dismiss();
+            toast.success(`Mindmap "${data.title}" loaded.`);
+        } catch (error: unknown) {
+            toast.dismiss();
+
+            if (error instanceof Error) {
+                toast.error(`Failed to load mind map: ${error.message}`);
+                console.error("Error loading mind map:", error);
+            } else {
+                toast.error("An unknown error occurred while loading the mind map.");
+                console.error("Unknown error:", error);
+            }
+        }
+    }
 }));
 
 export default useStore;
