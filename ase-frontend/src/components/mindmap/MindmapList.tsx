@@ -2,9 +2,9 @@ import { GetCurrentUser } from "../../utils/storageWrapper.ts";
 import { useQuery } from "react-query";
 import useStore from "./Store.tsx";
 import { Trash2, Check, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from "react-hot-toast"
-import {queryClient} from "../../utils/queryClient.ts";
+import { queryClient } from "../../utils/queryClient.ts";
 
 type Entry = {
     id: number;
@@ -20,6 +20,8 @@ type MindmapList = {
 function MindmapList() {
     const dateTime = new Date();
     const loadMindMap = useStore(state => state.loadMindMap);
+    const currentMindMapId = useStore(state => state.currentMindMapId);
+    const hasLoadedInitialMap = useRef(false); // Verhindert mehrfaches Laden
 
     const { isLoading, error, data } = useQuery<MindmapList, Error>({
         queryKey: [`get_mindmap_list_${dateTime.getMonth()}`],
@@ -42,6 +44,19 @@ function MindmapList() {
         }
     });
 
+    // Lädt automatisch die erste Mindmap aus "own", wenn vorhanden und noch nichts geladen wurde
+    useEffect(() => {
+        if (
+            data &&
+            data.own.length > 0 &&
+            !currentMindMapId &&
+            !hasLoadedInitialMap.current
+        ) {
+            hasLoadedInitialMap.current = true;
+            loadMindMap(data.own[0].id);
+        }
+    }, [data, currentMindMapId, loadMindMap]);
+
     const user = GetCurrentUser();
     if (!user) {
         return <p><b>Login to see your mindmaps</b></p>;
@@ -58,8 +73,6 @@ function MindmapList() {
     }) => {
         const [hovered, setHovered] = useState(false);
         const [confirmingDelete, setConfirmingDelete] = useState(false);
-        const currentMindMapId = useStore(state => state.currentMindMapId);
-
         const isSelected = map.id === currentMindMapId;
 
         return (
@@ -71,11 +84,11 @@ function MindmapList() {
                     setConfirmingDelete(false);
                 }}
                 className={`relative flex items-center justify-between bg-white border rounded-md px-3 py-2 shadow-sm hover:shadow-md cursor-pointer transition duration-200 group
-                ${isSelected ? 'border-2 border-gray-700 bg-gray-100' : 'border-gray-300'}`} // Dunkelgraue Umrandung für die selektierte Karte
+                ${isSelected ? 'border-2 border-gray-700 bg-gray-100' : 'border-gray-300'}`}
             >
-            <span className="text-sm font-medium text-black truncate">
-                {map.title}
-            </span>
+                <span className="text-sm font-medium text-black truncate">
+                    {map.title}
+                </span>
 
                 {hovered && onConfirmDelete && (
                     <div
@@ -137,7 +150,8 @@ function MindmapList() {
             if (!response.ok) {
                 throw new Error(`An error occurred while trying to delete: ${response.status}`);
             }
-            await queryClient.invalidateQueries({queryKey: [`get_mindmap_list_${new Date().getMonth()}`]});
+
+            await queryClient.invalidateQueries({ queryKey: [`get_mindmap_list_${new Date().getMonth()}`] });
             toast.dismiss();
             toast.success("Mindmap deleted!");
 
@@ -166,7 +180,7 @@ function MindmapList() {
                             key={m.id}
                             map={m}
                             onClick={() => handleClick(m.id)}
-                            onConfirmDelete={() => handleDeleteMindmap(m.id)}  // Only pass onConfirmDelete here
+                            onConfirmDelete={() => handleDeleteMindmap(m.id)}
                         />
                     ))}
                 </div>
@@ -180,7 +194,6 @@ function MindmapList() {
                             key={m.id}
                             map={m}
                             onClick={() => handleClick(m.id)}
-                            // No delete functionality here
                         />
                     ))}
                 </div>
@@ -194,7 +207,6 @@ function MindmapList() {
                             key={m.id}
                             map={m}
                             onClick={() => handleClick(m.id)}
-                            // No delete functionality here either
                         />
                     ))}
                 </div>
