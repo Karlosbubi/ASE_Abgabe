@@ -42,6 +42,11 @@ function MindmapList() {
         }
     });
 
+    const user = GetCurrentUser();
+    if (!user) {
+        return <p><b>Login to see your mindmaps</b></p>;
+    }
+
     const MindmapCard = ({
                              map,
                              onClick,
