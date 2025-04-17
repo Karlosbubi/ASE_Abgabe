@@ -1,8 +1,12 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { DatabaseService } from '../db/database.service';
 import { CreateMindmapDto } from '../types/dto/CreateMindmapDto';
 import { User } from '../types/db_entities/user';
-import { Mindmap } from '../types/db_entities/mindmap';
+import { Mindmap, MindmapRights } from '../types/db_entities/mindmap';
 
 @Injectable()
 export class MindmapService {
@@ -13,14 +17,24 @@ export class MindmapService {
   }
 
   async get(id: number, user: number | User) {
+    if (typeof id !== 'number') {
+      id = Number(id);
+      console.log('ID Type-Violation detectd');
+    }
+
     const mindmap = await this.db.get_mindmap_by_id(id);
     const user_id = typeof user === 'number' ? user : user.id;
+    const owner_id =
+      typeof mindmap.owner === 'number' ? mindmap.owner : mindmap.owner.id;
 
-    if (mindmap.owner === user_id) {
+    if (owner_id === user_id) {
       return mindmap;
     }
 
-    const rights = await this.db.get_mindmap_access(id, user_id);
+    const rights: MindmapRights = await this.db.get_mindmap_access(id, user_id);
+    if (rights === null) {
+      throw new UnauthorizedException();
+    }
     if (rights.can_read) {
       return mindmap;
     }
@@ -37,6 +51,9 @@ export class MindmapService {
 
     // Prevent escalation by user substitution
     const mindmap_old = await this.db.get_mindmap_by_id(mindmap.id);
+    if (mindmap.owner === null) {
+      throw new NotFoundException();
+    }
     if (mindmap_old.owner === user_id) {
       return this.db.update_mindmap(mindmap);
     }

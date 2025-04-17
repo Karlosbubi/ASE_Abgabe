@@ -129,7 +129,7 @@ export class DatabaseService {
     }
   }
 
-  async get_mindmap_by_id(mindmap_id: number): Promise<Mindmap> {
+  async get_mindmap_by_id(mindmap_id: number): Promise<Mindmap | null> {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
 
@@ -141,6 +141,7 @@ export class DatabaseService {
       return result.rows[0];
     } catch (error: any) {
       console.log(error);
+      return null;
     } finally {
       await client.end();
     }
@@ -221,7 +222,7 @@ export class DatabaseService {
   async get_mindmap_access(
     mindmap: number | Mindmap,
     user: number | User,
-  ): Promise<MindmapRights> {
+  ): Promise<MindmapRights | null> {
     const user_id = typeof user === 'number' ? user : user.id;
     const mindmap_id = typeof mindmap === 'number' ? mindmap : mindmap.id;
 
@@ -232,6 +233,10 @@ export class DatabaseService {
       'select mindmap_user, mindmap, can_read, can_write from mindmap_rights where mindmap_user = $1 and mindmap = $2;';
     const query_values = [user_id, mindmap_id];
 
+    console.log(`Mindmap : ${JSON.stringify(mindmap)}`);
+    console.log(typeof mindmap);
+    console.log(`Mindmap ID : ${mindmap_id}`);
+
     try {
       const result = await client.query<MindmapRights>(
         query_text,
@@ -240,6 +245,7 @@ export class DatabaseService {
       return result.rows[0];
     } catch (error: any) {
       console.log(error);
+      return null;
     } finally {
       await client.end();
     }
