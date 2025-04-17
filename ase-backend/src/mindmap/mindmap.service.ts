@@ -49,6 +49,7 @@ export class MindmapService {
   async update(mindmap: Mindmap, user: number | User) {
     const user_id = typeof user === 'number' ? user : user.id;
 
+    mindmap.id = Number(mindmap.id); // WTF TypeScript TYPES PLEASE
     // Prevent escalation by user substitution
     const mindmap_old = await this.db.get_mindmap_by_id(mindmap.id);
     if (mindmap.owner === null) {
@@ -58,7 +59,11 @@ export class MindmapService {
       return this.db.update_mindmap(mindmap);
     }
 
-    const rights = await this.db.get_mindmap_access(mindmap, mindmap_old.owner);
+    mindmap.owner = mindmap_old.owner;
+    const rights = await this.db.get_mindmap_access(
+      mindmap.id,
+      user_id,
+    );
     if (rights.can_write) {
       return this.db.update_mindmap(mindmap);
     }
