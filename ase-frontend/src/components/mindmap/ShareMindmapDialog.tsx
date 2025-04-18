@@ -4,17 +4,32 @@ import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import { Checkbox } from "../../components/ui/checkbox";
 import { useState } from "react"
+import useStore from "./Store.tsx";
+import { toast } from "react-hot-toast";
 
 const ShareMindmapDialog = () => {
     const [emails, setEmails] = useState("");
     const [readOnly, setReadOnly] = useState(false);
 
+    const shareMindMap = useStore((state) => state.shareMindMap);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const emailList = emails.split(",").map(email => email.trim()).filter(Boolean);
-        console.log("Sharing with:", emailList, "Read-only:", readOnly);
+        const email = emails.trim();
 
-        // TODO: Call API to share mindmap
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!email) {
+            return toast.error("Please enter an email address.");
+        }
+
+        if (!emailRegex.test(email)) {
+            return toast.error("Please enter a valid email address.");
+        }
+
+        shareMindMap([email], readOnly);
+        toast.success("Invitation sent!");
+        setEmails(""); // optional: Eingabefeld leeren nach dem Versand
     };
 
     return (
@@ -37,7 +52,7 @@ const ShareMindmapDialog = () => {
                             <Label htmlFor="emails">Email addresses</Label>
                             <Input
                                 id="emails"
-                                placeholder="example1@mail.com, example2@mail.com"
+                                placeholder="example@mail.com"
                                 value={emails}
                                 onChange={(e) => setEmails(e.target.value)}
                             />
