@@ -303,7 +303,7 @@ const useStore = create<RFState>((set, get) => ({
 
                 const response = await fetch("http://localhost:3000/mindmap/share", requestOptions);
 
-                if (response.status === 200) {
+                if (response.status === 200 || response.status === 201) {
                     toast.dismiss();
                     toast.success(`Successfully added ${email}`);
                     continue;

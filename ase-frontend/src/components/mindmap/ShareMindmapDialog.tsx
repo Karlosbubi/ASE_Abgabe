@@ -1,15 +1,19 @@
+// ShareMindmapDialog.tsx
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle } from "../../components/ui/dialog";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Button } from "../../components/ui/button";
 import { Checkbox } from "../../components/ui/checkbox";
-import { useState } from "react"
+import { useState } from "react";
 import useStore from "./Store.tsx";
 import { toast } from "react-hot-toast";
+import ManageUsersDialog from "./ManageUsersDialog"; // Importiere die neue Komponente
 
 const ShareMindmapDialog = () => {
     const [emails, setEmails] = useState("");
     const [readOnly, setReadOnly] = useState(false);
+    const [isUserListOpen, setIsUserListOpen] = useState(false);
+    const mindmapId = useStore((state) => state.currentMindMapId);
 
     const shareMindMap = useStore((state) => state.shareMindMap);
 
@@ -31,6 +35,14 @@ const ShareMindmapDialog = () => {
         setEmails("");
     };
 
+    const handleUserListOpen = () => {
+        setIsUserListOpen(true);
+    };
+
+    const handleUserListClose = () => {
+        setIsUserListOpen(false);
+    };
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -48,7 +60,7 @@ const ShareMindmapDialog = () => {
 
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="emails">Email addresses</Label>
+                            <Label htmlFor="emails">Email address</Label>
                             <Input
                                 id="emails"
                                 placeholder="example@mail.com"
@@ -67,11 +79,31 @@ const ShareMindmapDialog = () => {
                         </div>
                     </div>
 
-                    <DialogFooter>
-                        <Button type="submit">Send Invite</Button>
-                    </DialogFooter>
+                    {/* User List button on the left side of the footer */}
+                    <div className="flex justify-between items-center">
+                        <button
+                            type="button"
+                            onClick={handleUserListOpen}
+                            className="text-black underline"
+                            disabled={!mindmapId}  // Deaktivieren des Buttons, wenn keine Mindmap geladen ist
+                        >
+                            Manage Users ...
+                        </button>
+
+                        <DialogFooter>
+                            <Button type="submit">Send Invite</Button>
+                        </DialogFooter>
+                    </div>
                 </form>
             </DialogContent>
+
+            {mindmapId && (
+                <ManageUsersDialog
+                    isOpen={isUserListOpen}
+                    onClose={handleUserListClose}
+                    mindmapId={mindmapId}
+                />
+            )}
         </Dialog>
     );
 };
