@@ -14,7 +14,7 @@ something something
 ### Entwicklung
 
 1. Enusre you have the required tools
-   - [NodeJS](https://nodejs.org/en/download/package-manager), recommended version 22.12, minimum version 18.18
+   - [NodeJS](https://nodejs.org/en/download/package-manager), recommended version 22.12
    - [pnpm](https://pnpm.io/installation) (recommended or packagemanager of choice)
    - nest JS cli
    - docker and docker compose
