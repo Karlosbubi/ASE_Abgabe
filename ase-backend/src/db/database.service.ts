@@ -301,7 +301,7 @@ export class DatabaseService {
     try {
       const result_edit = await client.query<User>(
         'select u.id, u.name, u.email from mindmap_user as u join mindmap_rights as r on r.mindmap_user = u.id ' +
-          'where r.mindmap_user = $1 and r.can_write = true;',
+          'where r.mindmap = $1 and r.can_write = true;',
         [mindmap_id],
       );
       const result_read = await client.query<User>(
