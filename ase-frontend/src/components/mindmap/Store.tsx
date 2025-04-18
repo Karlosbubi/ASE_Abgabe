@@ -120,6 +120,11 @@ const useStore = create<RFState>((set, get) => ({
         console.log('📦 Mindmap JSON:', JSON.stringify(data, null, 2));
 
         const user = GetCurrentUser();
+        if (!user?.JWT) {
+            toast.dismiss();
+            toast.error("You must be logged in to create a mindmap.");
+            return;
+        }
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -163,6 +168,11 @@ const useStore = create<RFState>((set, get) => ({
         const rootNode = nodes.find((node) => node.id === 'root');
         const title = rootNode?.data?.label || "Untitled Mindmap";
         const user = GetCurrentUser();
+        if (!user?.JWT) {
+            toast.dismiss();
+            toast.error("You must be logged in to safe a mindmap.");
+            return;
+        }
 
         const data = {
             id: currentMindMapId,
@@ -207,7 +217,7 @@ const useStore = create<RFState>((set, get) => ({
         const user = GetCurrentUser();
         if (!user?.JWT) {
             toast.dismiss();
-            toast.error("User unauthorized.");
+            toast.error("You must be logged in to load a mindmap.");
             return;
         }
 
