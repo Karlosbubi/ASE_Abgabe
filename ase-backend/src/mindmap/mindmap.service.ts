@@ -128,4 +128,23 @@ export class MindmapService {
       can_write,
     );
   }
+
+  async get_mindmap_user_list(owner: number | User, mindmap: number | Mindmap) {
+    const owner_id =
+      typeof owner === 'number'
+        ? owner
+        : typeof owner === 'object'
+          ? owner.id
+          : Number(owner);
+
+    const result = await this.db.list_users_for_mindmap(mindmap);
+    if (result === null || result === undefined) {
+      throw new NotFoundException();
+    }
+
+    if (owner_id === result.own) {
+      return result;
+    }
+    throw new UnauthorizedException();
+  }
 }
