@@ -23,6 +23,7 @@ import {
 } from '@nestjs/swagger';
 import { MindmapAccessListDto } from 'src/types/dto/MindmapAccessListDto';
 import { UpdateMindmapRightsDto } from '../types/dto/UpdateMindmapRightsDto';
+import { MindmapUserListDto } from '../types/dto/MindmapUserListDto';
 
 @ApiBearerAuth()
 @Controller('mindmap')
@@ -96,7 +97,13 @@ export class MindmapController {
 
   @Get(':id/share')
   @UseGuards(AuthGuard)
-  get_share_list(@Req() request,  @Param('id') id: number) {
+  @ApiOkResponse({
+    description: 'You Mindmap or User not found',
+    type: MindmapUserListDto,
+  })
+  @ApiNotFoundResponse({ description: 'Mindmap not found.' })
+  @ApiUnauthorizedResponse({description: 'Only the Owner can query this.' })
+  get_share_list(@Req() request, @Param('id') id: number) {
     return this.mindmapService.get_mindmap_user_list(request['user'], id);
   }
 }
