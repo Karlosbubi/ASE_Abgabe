@@ -28,8 +28,7 @@ const ShareMindmapDialog = () => {
         }
 
         shareMindMap([email], readOnly);
-        toast.success("Invitation sent!");
-        setEmails(""); // optional: Eingabefeld leeren nach dem Versand
+        setEmails("");
     };
 
     return (

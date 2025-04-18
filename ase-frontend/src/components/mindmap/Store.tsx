@@ -304,27 +304,30 @@ const useStore = create<RFState>((set, get) => ({
                 const response = await fetch("http://localhost:3000/mindmap/share", requestOptions);
 
                 if (response.status === 200) {
-                    console.log(`Successfully invited ${email}`);
+                    toast.dismiss();
+                    toast.success(`Successfully added ${email}`);
                     continue;
                 }
 
                 if (response.status === 401) {
+                    toast.dismiss();
                     toast.error(`No rights to share this mindmap with ${email}.`);
                 } else if (response.status === 403) {
+                    toast.dismiss();
                     toast.error("Unauthorized request. Please log in again.");
                 } else if (response.status === 404) {
+                    toast.dismiss();
                     toast.error(`Mindmap or user not found for ${email}.`);
                 } else if (response.status === 500) {
+                    toast.dismiss();
                     toast.error("Server error occurred. Please try again later.");
                 } else {
                     const errorText = await response.text();
                     console.error(`Unexpected error (${response.status}) for ${email}:`, errorText);
+                    toast.dismiss();
                     toast.error(`Failed to invite ${email}`);
                 }
             }
-
-            toast.dismiss();
-            toast.success("Invitation processed.");
         } catch (error) {
             toast.dismiss();
             console.error("Error while sharing mindmap:", error);
