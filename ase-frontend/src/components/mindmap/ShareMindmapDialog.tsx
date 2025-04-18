@@ -79,13 +79,12 @@ const ShareMindmapDialog = () => {
                         </div>
                     </div>
 
-                    {/* User List button on the left side of the footer */}
                     <div className="flex justify-between items-center">
                         <button
                             type="button"
                             onClick={handleUserListOpen}
                             className="text-black underline"
-                            disabled={!mindmapId}  // Deaktivieren des Buttons, wenn keine Mindmap geladen ist
+                            disabled={!mindmapId}
                         >
                             Manage Users ...
                         </button>
