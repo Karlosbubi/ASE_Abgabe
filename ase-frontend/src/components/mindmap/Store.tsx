@@ -195,10 +195,15 @@ const useStore = create<RFState>((set, get) => ({
         };
 
         try {
-            await fetch("http://localhost:3000/mindmap", requestOptions);
+            const res = await fetch("http://localhost:3000/mindmap", requestOptions);
             await queryClient.invalidateQueries({queryKey: [`get_mindmap_list_${new Date().getMonth()}`]});
             toast.dismiss()
-            toast.success("Mindmap saved successfully!");
+            if(res.ok) {
+                toast.success("Mindmap saved successfully!");
+            }
+            else{
+                toast.error("Saving mindmap failed.");
+            }
         } catch (error) {
             console.error(error);
             toast.dismiss()

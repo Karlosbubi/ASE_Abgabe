@@ -22,6 +22,7 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { MindmapAccessListDto } from 'src/types/dto/MindmapAccessListDto';
+import { UpdateMindmapRights } from '../types/dto/UpdateMindmapRights';
 
 @ApiBearerAuth()
 @Controller('mindmap')
@@ -74,5 +75,22 @@ export class MindmapController {
   })
   delete(@Param('id') id: number, @Req() request) {
     return this.mindmapService.delete(id, request['user']);
+  }
+
+  @Post('share')
+  @UseGuards(AuthGuard)
+  @ApiOkResponse({ description: 'Permission Set' })
+  @ApiNotFoundResponse({ description: 'Mindmap or User not found' })
+  @ApiUnauthorizedResponse({
+    description: "You don't have rights to share this mindmap",
+  })
+  share(@Body() rights: UpdateMindmapRights, @Req() request) {
+    return this.mindmapService.update_rights(
+      request['user'],
+      rights.recipient_email,
+      rights.mindmap,
+      rights.can_read,
+      rights.can_write,
+    );
   }
 }

@@ -19,7 +19,8 @@ export class MindmapService {
   async get(id: number, user: number | User) {
     if (typeof id !== 'number') {
       id = Number(id);
-      console.log('ID Type-Violation detectd');
+      console.log('ID Type-Violation detected');
+      // More like TypelessScript
     }
 
     const mindmap = await this.db.get_mindmap_by_id(id);
@@ -79,6 +80,52 @@ export class MindmapService {
       return this.db.delete_mindmap_by_id(id);
     }
 
+    const rights = await this.db.get_mindmap_access(mindmap, user_id);
+    if (rights.can_read) {
+      return this.db.set_mindmap_access(mindmap, user_id, false, false);
+    }
+
     throw new UnauthorizedException();
+  }
+
+  async update_rights(
+    owner: number | User,
+    recipient_email: string,
+    mindmap: number | Mindmap,
+    can_read: boolean,
+    can_write: boolean,
+  ) {
+    const owner_id =
+      typeof owner === 'number'
+        ? owner
+        : typeof owner === 'object' // Why can't I check for type 'User' ??
+          ? owner.id
+          : Number(owner); // Why can this even happen TS ??
+    const mindmap_id =
+      typeof mindmap === 'number'
+        ? mindmap
+        : typeof mindmap === 'object'
+          ? mindmap.id
+          : Number(mindmap);
+    const mindmap_old = await this.db.get_mindmap_by_id(mindmap_id);
+    if (mindmap_old === null) {
+      throw new NotFoundException('Mindmap Not found');
+    }
+
+    if (owner_id !== mindmap_old.owner) {
+      throw new UnauthorizedException();
+    }
+
+    const recipient =  await this.db.get_user_by_email(recipient_email);
+    if (recipient === null) {
+      throw new NotFoundException('Recipient not found');
+    }
+
+    return await this.db.set_mindmap_access(
+      mindmap_id,
+      recipient.id,
+      can_read,
+      can_write,
+    );
   }
 }
