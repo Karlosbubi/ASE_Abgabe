@@ -98,10 +98,10 @@ export class MindmapController {
   @Get(':id/share')
   @UseGuards(AuthGuard)
   @ApiOkResponse({
-    description: 'You Mindmap or User not found',
+    description: 'The Following users have access.',
     type: MindmapUserListDto,
   })
-  @ApiNotFoundResponse({ description: 'Mindmap not found.' })
+  @ApiNotFoundResponse({ description: 'You Mindmap or User not found.' })
   @ApiUnauthorizedResponse({description: 'Only the Owner can query this.' })
   get_share_list(@Req() request, @Param('id') id: number) {
     return this.mindmapService.get_mindmap_user_list(request['user'], id);
