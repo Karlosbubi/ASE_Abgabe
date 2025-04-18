@@ -14,7 +14,7 @@ something something
 ### Entwicklung
 
 1. Enusre you have the required tools
-   - [NodeJS](https://nodejs.org/en/download/package-manager), recommended version 22.12, minimum version 18.18
+   - [NodeJS](https://nodejs.org/en/download/package-manager), recommended version 22.12
    - [pnpm](https://pnpm.io/installation) (recommended or packagemanager of choice)
    - nest JS cli
    - docker and docker compose
@@ -32,27 +32,27 @@ something something
 
 ### normaler Nutzer
 
-- Als Nutzer möchte ich eine neue leere Mindmap erstellen können
-- Als Nutzer möchte ich ein Nutzerkonto anlegen können, um mehrere Mindmaps zu verwalten
-- Als Nutzer möchte ich E-Mail-Adresse und Passwort meines Kontos änderen können
-- Als Nutzer möchte ich neue Inhalte auf meine Mindmap hinzufügen können
-- Als Nutzer möchte ich meine Mindmaps exportieren können
-- [Bonus] Als Nutzer möchte ich meine Mindmaps mit anderen Nutzern teilen können
-- [Bonus] Als einladender Nutzer möchte ich mitlesende wieder entfernen können
-- [Bonus] Als einladender Nutzer möchte ich Lese-/Schreibrechte der anderen verwalten können
-- [Bonus] Als eingeladener Nutzer möchte ich in geteilten Mindmaps mitarbeiten können
+- [x] Als Nutzer möchte ich eine neue leere Mindmap erstellen können
+- [x] Als Nutzer möchte ich ein Nutzerkonto anlegen können, um mehrere Mindmaps zu verwalten
+- [ ] Als Nutzer möchte ich E-Mail-Adresse und Passwort meines Kontos änderen können
+- [x] Als Nutzer möchte ich neue Inhalte auf meine Mindmap hinzufügen können
+- [ ] Als Nutzer möchte ich meine Mindmaps exportieren können
+- [x] [Bonus] Als Nutzer möchte ich meine Mindmaps mit anderen Nutzern teilen können
+- [ ] [Bonus] Als einladender Nutzer möchte ich mitlesende wieder entfernen können
+- [ ] [Bonus] Als einladender Nutzer möchte ich Lese-/Schreibrechte der anderen verwalten können
+- [x] [Bonus] Als eingeladener Nutzer möchte ich in geteilten Mindmaps mitarbeiten können
 
 ### admin Nutzer
 
-- Als admin Nutzer möchte ich Statistiken über das Nutzverhalten einsehen können
-- Als admin Nutzer möchte ich Nutzerkonten sperren können
+- [ ] Als admin Nutzer möchte ich Statistiken über das Nutzverhalten einsehen können
+- [ ] Als admin Nutzer möchte ich Nutzerkonten sperren können
 
 ## Todos
 
-- [ ] add user password hashing
+- [x] add user password hashing
 - [x] add Auth Guard
 - [ ] add Auth Roles (Will der Habeck unbedingt)
-- [ ] Mindmap Nodes SQL Schema fixen
-- [ ] add Mindmap Controller
-- [ ] Frontend mal anfangen
+- [x] Mindmap Nodes SQL Schema fixen
+- [x] add Mindmap Controller
+- [x] Frontend mal anfangen
 - [x] Docker Daten persintenz gegen checken
