@@ -9,6 +9,6 @@ export class UpdateMindmapRights
   recipient_email: string;
   @ApiProperty()
   can_read: boolean = false;
-  @ApiProperty()s
+  @ApiProperty()
   can_write: boolean = false;
 }
