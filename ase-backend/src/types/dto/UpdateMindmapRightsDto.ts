@@ -1,8 +1,7 @@
 import { Mindmap } from '../db_entities/mindmap';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateMindmapRights
-{
+export class UpdateMindmapRightsDto {
   @ApiProperty()
   mindmap: number | Mindmap;
   @ApiProperty()

@@ -6,6 +6,7 @@ import { UpdateUserDto } from '../types/dto/UpdateUserDto';
 import { Mindmap, MindmapRights } from '../types/db_entities/mindmap';
 import { CreateMindmapDto } from '../types/dto/CreateMindmapDto';
 import { MindmapAccessListDto } from '../types/dto/MindmapAccessListDto';
+import { MindmapUserListDto } from '../types/dto/MindmapUserListDto';
 
 @Injectable()
 export class DatabaseService {
@@ -133,7 +134,8 @@ export class DatabaseService {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
 
-    const query_text = 'select id, title, owner, graph from mindmap where id = $1;';
+    const query_text =
+      'select id, title, owner, graph from mindmap where id = $1;';
     const query_values = [mindmap_id];
 
     try {
@@ -273,6 +275,46 @@ export class DatabaseService {
         query_values,
       );
       return result.rows[0];
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      await client.end();
+    }
+  }
+
+  async list_users_for_mindmap(
+    mindmap: number | Mindmap,
+  ): Promise<MindmapUserListDto> {
+    const mindmap_id =
+      typeof mindmap === 'number'
+        ? mindmap
+        : typeof mindmap === 'object'
+          ? mindmap.id
+          : Number(mindmap);
+
+    const mindmap_db = await this.get_mindmap_by_id(mindmap_id);
+    const owner = mindmap_db.owner;
+
+    const client = new Client({ connectionString: this.connection_string });
+    await client.connect();
+
+    try {
+      const result_edit = await client.query<User>(
+        'select u.id, u.name, u.email from mindmap_user as u join mindmap_rights as r on r.mindmap_user = u.id ' +
+          'where r.mindmap_user = $1 and r.can_write = true;',
+        [mindmap_id],
+      );
+      const result_read = await client.query<User>(
+        'select u.id, u.name, u.email from mindmap_user as u join mindmap_rights as r on r.mindmap_user = u.id ' +
+          'where r.mindmap = $1 and r.can_write = false and r.can_read = true;',
+        [mindmap_id],
+      );
+
+      return {
+        own: owner,
+        edit: result_edit.rows,
+        read_only: result_read.rows,
+      };
     } catch (error: any) {
       console.log(error);
     } finally {
