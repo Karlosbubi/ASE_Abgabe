@@ -17,6 +17,7 @@ import MindMapNode from './MindMapNode.tsx';
 import MindMapEdge from './MindMapEdge.tsx';
 import useStore, { type RFState } from './Store.tsx';
 import ShareMindmapDialog from "./ShareMindmapDialog.tsx";
+import HelpButton from './HelpButton.tsx';
 import { GetCurrentUser } from "../../utils/storageWrapper.ts";
 
 import '@xyflow/react/dist/style.css';
@@ -146,6 +147,9 @@ const MindMap = () => {
                     </button>
                     {isOwner && <ShareMindmapDialog />}
                 </div>
+            </Panel>
+            <Panel position="top-right">
+                <HelpButton />
             </Panel>
         </ReactFlow>
     );
