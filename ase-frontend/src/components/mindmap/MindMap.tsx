@@ -17,6 +17,7 @@ import MindMapNode from './MindMapNode.tsx';
 import MindMapEdge from './MindMapEdge.tsx';
 import useStore, { type RFState } from './Store.tsx';
 import ShareMindmapDialog from "./ShareMindmapDialog.tsx";
+import { GetCurrentUser } from "../../utils/storageWrapper.ts";
 
 import '@xyflow/react/dist/style.css';
 
@@ -46,6 +47,9 @@ const MindMap = () => {
     );
     const connectingNodeId = useRef<string | null>(null);
     const store = useStoreApi();
+    const user = GetCurrentUser();
+    const ownerId = useStore((state) => state.ownerId);
+    const isOwner = user && ownerId === user.id;
     const { screenToFlowPosition } = useReactFlow();
 
     const getChildNodePosition = (
@@ -140,7 +144,7 @@ const MindMap = () => {
                     >
                         Save
                     </button>
-                    <ShareMindmapDialog />
+                    {isOwner && <ShareMindmapDialog />}
                 </div>
             </Panel>
         </ReactFlow>

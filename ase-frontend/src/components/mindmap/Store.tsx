@@ -19,6 +19,7 @@ export type RFState = {
     nodes: Node[];
     edges: Edge[];
     currentMindMapId?: number;
+    ownerId?: number;
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
     addChildNode: (parentNode: Node, position: XYPosition) => void;
@@ -197,18 +198,20 @@ const useStore = create<RFState>((set, get) => ({
 
         try {
             const res = await fetch("http://localhost:3000/mindmap", requestOptions);
-            await queryClient.invalidateQueries({queryKey: [`get_mindmap_list_${new Date().getMonth()}`]});
-            toast.dismiss()
-            if(res.ok) {
+            await queryClient.invalidateQueries({ queryKey: [`get_mindmap_list_${new Date().getMonth()}`] });
+            toast.dismiss();
+
+            if (res.ok) {
                 toast.success("Mindmap saved successfully!");
-            }
-            else{
+            } else if (res.status === 401) {
+                toast.error("You do not have permission to save this mindmap. It may be shared with you as read-only.");
+            } else {
                 toast.error("Saving mindmap failed.");
             }
         } catch (error) {
             console.error(error);
-            toast.dismiss()
-            toast.error("En error occurred while saving your mindmap.");
+            toast.dismiss();
+            toast.error("An error occurred while saving your mindmap.");
         }
     },
 
@@ -249,6 +252,7 @@ const useStore = create<RFState>((set, get) => ({
                 nodes,
                 edges,
                 currentMindMapId: id,
+                ownerId: data.owner,
             });
 
             toast.dismiss();
