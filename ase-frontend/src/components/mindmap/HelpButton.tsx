@@ -29,6 +29,9 @@ const HelpButton = () => {
                         <li>
                             <strong>✏️ Rename node:</strong> Click on the text of a node to rename it.
                         </li>
+                        <li>
+                            <strong>📍 Root node:</strong> The central node at the start of the mindmap always matches the title of the mindmap.
+                        </li>
                     </ul>
                 </div>
             )}
