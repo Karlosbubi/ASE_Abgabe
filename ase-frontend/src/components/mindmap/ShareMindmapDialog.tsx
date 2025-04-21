@@ -90,7 +90,7 @@ const ShareMindmapDialog = () => {
                         </button>
 
                         <DialogFooter>
-                            <Button type="submit">Send Invite</Button>
+                            <Button type="submit">Add User</Button>
                         </DialogFooter>
                     </div>
                 </form>

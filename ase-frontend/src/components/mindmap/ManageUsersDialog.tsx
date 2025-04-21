@@ -192,7 +192,7 @@ const ManageUsersDialog = ({ isOpen, onClose, mindmapId }: ManageUsersDialogProp
                 )}
 
                 <DialogFooter>
-                    <Button onClick={onClose}>Close</Button>
+                    <Button onClick={onClose}>Done</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
