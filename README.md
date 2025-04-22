@@ -51,8 +51,17 @@ something something
 
 - [x] add user password hashing
 - [x] add Auth Guard
-- [ ] add Auth Roles (Will der Habeck unbedingt)
 - [x] Mindmap Nodes SQL Schema fixen
 - [x] add Mindmap Controller
 - [x] Frontend mal anfangen
 - [x] Docker Daten persintenz gegen checken
+- [ ] add Auth Roles (Will der Habeck unbedingt)
+- [ ] Frontend: Admin Dashboard
+- [ ] Frontend: User Profile
+- [ ] Frontend: tests
+- [ ] Frontend (BONUS): Multi language support
+- [ ] Frontend (BONUS): 1 week authentifiziert, danach automatisch ausloggen
+- [ ] Backend: tests
+- [ ] Doku: README, Aufsetzen der Anwendung
+- [ ] Doku: README, Tests ausführen
+- [ ] Doku: User Storys schönmachen
