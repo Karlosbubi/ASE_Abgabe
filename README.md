@@ -56,6 +56,7 @@ something something
 - [x] Frontend mal anfangen
 - [x] Docker Daten persintenz gegen checken
 - [ ] add Auth Roles (Will der Habeck unbedingt)
+- [ ] Frontend: Export fixen
 - [ ] Frontend: Admin Dashboard
 - [ ] Frontend: User Profile
 - [ ] Frontend: tests
