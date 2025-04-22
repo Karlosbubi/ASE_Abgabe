@@ -55,14 +55,15 @@ something something
 - [x] add Mindmap Controller
 - [x] Frontend mal anfangen
 - [x] Docker Daten persintenz gegen checken
-- [ ] add Auth Roles (Will der Habeck unbedingt)
-- [ ] Frontend: Export fixen
-- [ ] Frontend: Admin Dashboard
-- [ ] Frontend: User Profile
-- [ ] Frontend: tests
+- [x] add Auth Roles (Will der Habeck unbedingt)
+- [ ] Frontend: Export fixen (E)
+- [ ] Frontend: Admin Dashboard (D)
+- [ ] Frontend: User Profile (E)
+- [ ] Frontend: tests (D/E)
 - [ ] [Bonus] Frontend: Multi language support
 - [ ] [Bonus] Frontend: 1 week authentifiziert, danach automatisch ausloggen
-- [ ] Backend: tests
-- [ ] Doku: README, Aufsetzen der Anwendung
-- [ ] Doku: README, Tests ausführen
-- [ ] Doku: User Storys schönmachen
+- [ ] Backend: tests (K)
+- [ ] Backend: fix mit Share auf eigenen owner (K)
+- [ ] Doku: README, Aufsetzen der Anwendung (K)
+- [ ] Doku: README, Tests ausführen (K)
+- [ ] Doku: User Storys schönmachen (E)
