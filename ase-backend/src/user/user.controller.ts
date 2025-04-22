@@ -40,6 +40,14 @@ export class UserController {
     return this.userService.findById(request['user'].id);
   }
 
+  @Get('allUsers')
+  @UseGuards(AuthGuard)
+  @ApiOkResponse({ description: 'Found Users', type: User })
+  @ApiNotFoundResponse({ description: 'Meh' })
+  findAll() {
+    return this.userService.findAll();
+  }
+
   @Patch()
   @UseGuards(AuthGuard)
   @ApiOkResponse({ description: 'Updated User', type: User })

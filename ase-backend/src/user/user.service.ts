@@ -30,6 +30,12 @@ export class UserService {
     return with_(user, { password: '*****' });
   }
 
+  async findAll() {
+    console.log('All users acquired');
+    const allUsers = await this.db.findAll();
+    return allUsers;
+  }
+
   async updateById(id: number, updateUserDto: UpdateUserDto) {
     console.log(id);
     if (

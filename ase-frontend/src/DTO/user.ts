@@ -4,7 +4,7 @@ export class User {
     email: string;
     JWT: string;
 
-    constructor(data: { JWT: string; name: string; id: number; email: string }){
+    constructor(data: { JWT: string; name: string; id: number; email: string}) {
         this.id = data.id;
         this.name = data.name;
         this.email = data.email;

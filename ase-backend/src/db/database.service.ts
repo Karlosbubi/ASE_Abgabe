@@ -35,6 +35,20 @@ export class DatabaseService {
     }
   }
 
+  async findAll() {
+    const client = new Client({ connectionString: this.connection_string });
+    await client.connect();
+    const query_text = `select id, name, email, isAdmin from mindmap_user;`;
+    try {
+      const res = await client.query<User>(query_text);
+      return res.rows;
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      await client.end();
+    }
+  }
+
   async get_user_by_id(user_id: number): Promise<User> {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();

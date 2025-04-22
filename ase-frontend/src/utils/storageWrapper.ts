@@ -18,12 +18,10 @@ interface CustomJwtPayload extends JwtPayload {
     id: number;
     name: string;
     email: string;
-    isAdmin: boolean;
 }
 
 export function SetCurrentUserJwt(jwt: string) : void {
     const payload = jwtDecode(jwt) as CustomJwtPayload;
-
     const user = new User({
         id: payload.id,
         name: payload.name,
