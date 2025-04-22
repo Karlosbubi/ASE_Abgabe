@@ -9,7 +9,7 @@ import { Request } from 'express';
 import { DatabaseService } from '../db/database.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
     private readonly databaseService: DatabaseService,
@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
       const user = await this.databaseService.get_user_by_id(jwt_user.id);
       if (user) {
         request['user'] = user;
-        return true;
+        return user.isAdmin;
       }
     } catch {
       throw new UnauthorizedException();
