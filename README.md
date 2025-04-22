@@ -38,8 +38,8 @@ something something
 - [x] Als Nutzer möchte ich neue Inhalte auf meine Mindmap hinzufügen können
 - [ ] Als Nutzer möchte ich meine Mindmaps exportieren können
 - [x] [Bonus] Als Nutzer möchte ich meine Mindmaps mit anderen Nutzern teilen können
-- [ ] [Bonus] Als einladender Nutzer möchte ich mitlesende wieder entfernen können
-- [ ] [Bonus] Als einladender Nutzer möchte ich Lese-/Schreibrechte der anderen verwalten können
+- [x] [Bonus] Als einladender Nutzer möchte ich mitlesende wieder entfernen können
+- [x] [Bonus] Als einladender Nutzer möchte ich Lese-/Schreibrechte der anderen verwalten können
 - [x] [Bonus] Als eingeladener Nutzer möchte ich in geteilten Mindmaps mitarbeiten können
 
 ### admin Nutzer
@@ -59,8 +59,8 @@ something something
 - [ ] Frontend: Admin Dashboard
 - [ ] Frontend: User Profile
 - [ ] Frontend: tests
-- [ ] Frontend (BONUS): Multi language support
-- [ ] Frontend (BONUS): 1 week authentifiziert, danach automatisch ausloggen
+- [ ] [Bonus] Frontend: Multi language support
+- [ ] [Bonus] Frontend: 1 week authentifiziert, danach automatisch ausloggen
 - [ ] Backend: tests
 - [ ] Doku: README, Aufsetzen der Anwendung
 - [ ] Doku: README, Tests ausführen
