@@ -1,14 +1,31 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from './user';
+import {
+  IsNumber,
+  IsObject,
+  IsString,
+  ValidateIf,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class Mindmap {
   @ApiProperty()
+  @IsNumber()
   id: number;
   @ApiProperty()
+  @IsString()
   title: string;
-  @ApiProperty()
+  @ApiProperty({ description: 'Owner: User ID or User object' })
+  @ValidateIf((o) => typeof o.owner === 'number')
+  @IsNumber()
+  @ValidateIf((o) => typeof o.owner === 'object')
+  @IsObject()
+  @ValidateNested()
+  @Type(() => User)
   owner: number | User;
   @ApiProperty()
+  @IsObject()
   graph: object;
 }
 

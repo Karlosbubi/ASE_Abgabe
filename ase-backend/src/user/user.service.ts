@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../types/dto/CreateUserDto';
 import { UpdateUserDto } from '../types/dto/UpdateUserDto';
 import { DatabaseService } from '../db/database.service';
@@ -32,22 +32,32 @@ export class UserService {
 
   async findAll() {
     console.log('All users acquired');
-    const allUsers = await this.db.findAll();
-    return allUsers;
+    return await this.db.findAll();
   }
 
   async updateById(id: number, updateUserDto: UpdateUserDto) {
-    console.log(id);
-    if (
-      updateUserDto.name === '' ||
-      updateUserDto.email === '' ||
-      updateUserDto.password === ''
-    ) {
-      throw new Error('Data must be complete');
+    if (updateUserDto === undefined || updateUserDto === null) {
+      throw new BadRequestException("Provide valid 'UpdateUserDTO'");
     }
 
-    updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
-    const user = await this.db.update_user_by_id(id, updateUserDto);
+    let user = await this.db.get_user_by_id(id);
+
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+      user = await this.db.update_user_password_by_id(
+        id,
+        updateUserDto.password,
+      );
+    }
+
+    if (updateUserDto.name) {
+      user = await this.db.update_user_name_by_id(id, updateUserDto.name);
+    }
+
+    if (updateUserDto.email) {
+      user = await this.db.update_user_email_by_id(id, updateUserDto.email);
+    }
+
     return with_(user, { password: '*****' });
   }
 

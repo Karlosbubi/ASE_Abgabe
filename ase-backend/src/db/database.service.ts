@@ -86,12 +86,75 @@ export class DatabaseService {
 
     const query_text =
       'update mindmap_user set name = $2, email = $3, password = $4 where id = $1 returning *;';
-    const query_values: (number | string)[] = [
+    const query_values = [
       user_id,
       updateUserDto.name,
       updateUserDto.email,
       updateUserDto.password,
     ];
+
+    try {
+      const result = await client.query<User>(query_text, query_values);
+      return result.rows[0];
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      await client.end();
+    }
+  }
+
+  async update_user_password_by_id(
+    id: number,
+    password: string,
+  ): Promise<User> {
+    const client = new Client({ connectionString: this.connection_string });
+    await client.connect();
+
+    const query_text =
+      'update mindmap_user set password = $2 where id = $1 returning *;';
+    const query_values = [id, password];
+
+    try {
+      const result = await client.query<User>(query_text, query_values);
+      return result.rows[0];
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      await client.end();
+    }
+  }
+
+  async update_user_name_by_id(
+    id: number,
+    name: string,
+  ): Promise<User> {
+    const client = new Client({ connectionString: this.connection_string });
+    await client.connect();
+
+    const query_text =
+      'update mindmap_user set name = $2 where id = $1 returning *;';
+    const query_values = [id, name];
+
+    try {
+      const result = await client.query<User>(query_text, query_values);
+      return result.rows[0];
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      await client.end();
+    }
+  }
+
+  async update_user_email_by_id(
+    id: number,
+    email: string,
+  ): Promise<User> {
+    const client = new Client({ connectionString: this.connection_string });
+    await client.connect();
+
+    const query_text =
+      'update mindmap_user set email = $2 where id = $1 returning *;';
+    const query_values = [id, email];
 
     try {
       const result = await client.query<User>(query_text, query_values);
@@ -248,10 +311,6 @@ export class DatabaseService {
     const query_text =
       'select mindmap_user, mindmap, can_read, can_write from mindmap_rights where mindmap_user = $1 and mindmap = $2;';
     const query_values = [user_id, mindmap_id];
-
-    console.log(`Mindmap : ${JSON.stringify(mindmap)}`);
-    console.log(typeof mindmap);
-    console.log(`Mindmap ID : ${mindmap_id}`);
 
     try {
       const result = await client.query<MindmapRights>(

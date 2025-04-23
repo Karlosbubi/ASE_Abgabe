@@ -51,6 +51,7 @@ export class MindmapService {
     const user_id = typeof user === 'number' ? user : user.id;
 
     mindmap.id = Number(mindmap.id); // WTF TypeScript TYPES PLEASE
+
     // Prevent escalation by user substitution
     const mindmap_old = await this.db.get_mindmap_by_id(mindmap.id);
     if (mindmap.owner === null) {
@@ -61,10 +62,7 @@ export class MindmapService {
     }
 
     mindmap.owner = mindmap_old.owner;
-    const rights = await this.db.get_mindmap_access(
-      mindmap.id,
-      user_id,
-    );
+    const rights = await this.db.get_mindmap_access(mindmap.id, user_id);
     if (rights.can_write) {
       return this.db.update_mindmap(mindmap);
     }
@@ -116,7 +114,7 @@ export class MindmapService {
       throw new UnauthorizedException();
     }
 
-    const recipient =  await this.db.get_user_by_email(recipient_email);
+    const recipient = await this.db.get_user_by_email(recipient_email);
     if (recipient === null) {
       throw new NotFoundException('Recipient not found');
     }
