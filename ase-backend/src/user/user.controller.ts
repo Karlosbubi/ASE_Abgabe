@@ -17,9 +17,9 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiResponse,
 } from '@nestjs/swagger';
 import { User } from 'src/types/db_entities/user';
+import { AdminGuard } from '../auth/auth_admin.guard';
 
 @ApiBearerAuth()
 @Controller('user')
@@ -41,7 +41,7 @@ export class UserController {
   }
 
   @Get('allUsers')
-  @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
   @ApiOkResponse({ description: 'Found Users', type: User })
   @ApiNotFoundResponse({ description: 'Meh' })
   findAll() {
@@ -53,6 +53,7 @@ export class UserController {
   @ApiOkResponse({ description: 'Updated User', type: User })
   @ApiNotFoundResponse({ description: 'No User with this id' })
   update(@Req() request, @Body() updateUserDto: UpdateUserDto) {
+    console.log(updateUserDto);
     return this.userService.updateById(request['user'].id, updateUserDto);
   }
 
