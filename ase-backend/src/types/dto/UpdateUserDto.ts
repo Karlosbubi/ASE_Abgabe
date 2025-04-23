@@ -5,13 +5,13 @@ export class UpdateUserDto {
   @ApiProperty()
   @IsString()
   @IsOptional()
-  public name: string | null;
+  public name: string | null = null;
   @ApiProperty()
   @IsString()
   @IsOptional()
-  public email: string | null;
+  public email: string | null = null;
   @ApiProperty()
   @IsString()
   @IsOptional()
-  public password: string | null;
+  public password: string | null = null;
 }

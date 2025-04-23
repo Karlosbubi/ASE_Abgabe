@@ -1,8 +1,10 @@
+import 'reflect-metadata';
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
-import 'reflect-metadata';
+import { factory } from 'ts-jest/dist/transformers/hoist-jest';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,7 +29,8 @@ async function bootstrap() {
       transform: true,
       whitelist: true,
       forbidNonWhitelisted: false,
-      // Other options as needed
+      disableErrorMessages: false,
+      enableDebugMessages: true,
     }),
   );
   app.enableCors();

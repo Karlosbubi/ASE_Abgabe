@@ -9,11 +9,10 @@ import { DatabaseModule } from './db/database.module';
 import { MindmapController } from './mindmap/mindmap.controller';
 import { MindmapModule } from './mindmap/mindmap.module';
 import { MindmapService } from './mindmap/mindmap.service';
-import { ValidationPipe } from '@nestjs/common';
 
 @Module({
   imports: [UserModule, MindmapModule, DatabaseModule, AuthModule],
   controllers: [AppController, UserController, MindmapController],
-  providers: [AppService, UserService, MindmapService, ValidationPipe],
+  providers: [AppService, UserService, MindmapService],
 })
 export class AppModule {}
