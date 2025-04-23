@@ -21,7 +21,6 @@ type SvgStyle = {
 
   edge_color: string,
   edge_width: string,
-  edge_curve_strenght: number,
 }
 
 const createSvgFromMindmap = (nodes: Node[], edges: MindmapEdge[], style: SvgStyle): string => {
@@ -104,7 +103,7 @@ function DownloadSVGButton() {
     note_font_weight: "bold",
     node_text_color: "black",
     edge_color: "black",
-    edge_width: "2"
+    edge_width: "2",
   }
 
   const onClick = () => {
