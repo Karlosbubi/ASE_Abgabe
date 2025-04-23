@@ -8,14 +8,13 @@ const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     const dto = {
         name: e.target.Name.value,
         email: e.target.Email.value,
-        password: null
     }
 
     console.log(dto);
 
     const requestOptions = {
         method: 'PATCH',
-        headers: {Authorization: `Bearer ${user?.JWT}`},
+        headers: {'Authorization': `Bearer ${user?.JWT}`, 'Content-Type': 'application/json'},
         body: JSON.stringify(dto),
     };
 

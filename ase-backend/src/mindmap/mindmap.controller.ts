@@ -51,14 +51,14 @@ export class MindmapController {
 
   @Get()
   @UseGuards(AuthGuard)
-  @ApiOkResponse({ description: 'You Mindmaps', type: MindmapAccessListDto })
+  @ApiOkResponse({ description: 'Your Mindmaps', type: MindmapAccessListDto })
   list(@Req() request) {
     return this.mindmapService.list(request['user']);
   }
 
   @Patch()
   @UseGuards(AuthGuard)
-  @ApiOkResponse({ description: 'Mindmap Found', type: Mindmap })
+  @ApiOkResponse({ description: 'Updated Mindmap', type: Mindmap })
   @ApiNotFoundResponse({ description: 'No mindmap with this id' })
   @ApiUnauthorizedResponse({
     description: "You don't have rights to change this mindmap",
@@ -69,7 +69,7 @@ export class MindmapController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  @ApiOkResponse({ description: 'Mindmap Found', type: Mindmap })
+  @ApiOkResponse({ description: 'Mindmap Deleted' })
   @ApiNotFoundResponse({ description: 'No mindmap with this id' })
   @ApiUnauthorizedResponse({
     description: "You don't have rights to delete this mindmap",
@@ -102,7 +102,7 @@ export class MindmapController {
     type: MindmapUserListDto,
   })
   @ApiNotFoundResponse({ description: 'You Mindmap or User not found.' })
-  @ApiUnauthorizedResponse({description: 'Only the Owner can query this.' })
+  @ApiUnauthorizedResponse({ description: 'Only the Owner can query this.' })
   get_share_list(@Req() request, @Param('id') id: number) {
     return this.mindmapService.get_mindmap_user_list(request['user'], id);
   }
