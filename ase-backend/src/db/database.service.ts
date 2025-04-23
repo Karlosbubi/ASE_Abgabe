@@ -312,10 +312,6 @@ export class DatabaseService {
       'select mindmap_user, mindmap, can_read, can_write from mindmap_rights where mindmap_user = $1 and mindmap = $2;';
     const query_values = [user_id, mindmap_id];
 
-    console.log(`Mindmap : ${JSON.stringify(mindmap)}`);
-    console.log(typeof mindmap);
-    console.log(`Mindmap ID : ${mindmap_id}`);
-
     try {
       const result = await client.query<MindmapRights>(
         query_text,

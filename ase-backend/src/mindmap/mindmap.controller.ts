@@ -64,7 +64,6 @@ export class MindmapController {
     description: "You don't have rights to change this mindmap",
   })
   update(@Body() mindmap: Mindmap, @Req() request) {
-    console.log(mindmap);
     return this.mindmapService.update(mindmap, request['user']);
   }
 
