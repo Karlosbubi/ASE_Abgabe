@@ -24,5 +24,7 @@ create table if not exists mindmap_rights (
       foreign key (mindmap) references mindmap(id) on delete cascade,
       primary key (mindmap_user, mindmap),
       constraint write_implies_read
-          check (not (can_write = true and can_read = false))
+          check (not (can_write = true and can_read = false)),
+      constraint not_owner
+          check (not exists (select 1 from mindmap m where m.id = mindmap and m.owner = mindmap_user))
 );
