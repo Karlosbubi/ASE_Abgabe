@@ -40,6 +40,7 @@ const NavBar = () => {
                         <DownloadPNG/>
                         <DownloadSVG/>
                         <a href="/dashboard" className="hover:text-blue-600"> Dashboard </a>
+                        <a href="/admin" className="hover:text-blue-600"> Admin </a> {/*//TODO: meh*/}
                         <a href="/" className="hover:text-blue-600" onClick={ClearCurrentUser}> Logout </a>
                     </div>
                     <button

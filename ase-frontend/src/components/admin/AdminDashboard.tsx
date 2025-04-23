@@ -44,9 +44,6 @@ const AdminDashboard = () => {
             <NavBar />
 
             <main className="pt-16">
-                <div>
-                    <p>ISA: {user?.name}, {user?.isAdmin} </p>
-                </div>
                 <div className="flex justify-center items-start h-screen pt-20 bg-gray-200">
                     {isAdmin ? (
                         <AllUsersCard />
