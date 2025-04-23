@@ -4,6 +4,7 @@ import { UpdateUserDto } from '../types/dto/UpdateUserDto';
 import { DatabaseService } from '../db/database.service';
 import { with_ } from '../utils/with';
 import * as bcrypt from 'bcrypt';
+import { User } from '../types/db_entities/user';
 
 @Injectable()
 export class UserService {
@@ -36,11 +37,13 @@ export class UserService {
   }
 
   async updateById(id: number, updateUserDto: UpdateUserDto) {
-    if (updateUserDto === undefined || updateUserDto === null) {
+    if (updateUserDto === undefined) {
       throw new BadRequestException("Provide valid 'UpdateUserDTO'");
     }
 
     let user = await this.db.get_user_by_id(id);
+    console.log(updateUserDto);
+
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
       user = await this.db.update_user_password_by_id(
@@ -57,7 +60,7 @@ export class UserService {
       user = await this.db.update_user_email_by_id(id, updateUserDto.email);
     }
 
-    return with_(user, { password: '*****' });
+    return with_(user, { password: '*****' }) as User;
   }
 
   async deleteById(id: number) {

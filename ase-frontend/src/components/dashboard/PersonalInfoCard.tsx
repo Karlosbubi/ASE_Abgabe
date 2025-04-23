@@ -7,8 +7,7 @@ const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 
     const dto = {
         name: e.target.Name.value,
-        email: e.target.Email.value,
-        password: null
+        email: e.target.Email.value
     }
 
     console.log(dto);
