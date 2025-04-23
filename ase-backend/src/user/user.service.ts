@@ -41,6 +41,7 @@ export class UserService {
     }
 
     let user = await this.db.get_user_by_id(id);
+
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
       user = await this.db.update_user_password_by_id(
