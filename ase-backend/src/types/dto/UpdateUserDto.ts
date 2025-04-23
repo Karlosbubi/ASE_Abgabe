@@ -3,15 +3,15 @@ import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
   @ApiProperty()
-  @IsOptional()
   @IsString()
-  public name: string;
+  @IsOptional()
+  public name: string | null;
   @ApiProperty()
-  @IsOptional()
   @IsString()
-  public email: string;
+  @IsOptional()
+  public email: string | null;
   @ApiProperty()
-  @IsOptional()
   @IsString()
-  public password: string;
+  @IsOptional()
+  public password: string | null;
 }

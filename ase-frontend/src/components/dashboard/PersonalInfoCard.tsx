@@ -6,7 +6,6 @@ const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const dto = {
-        id: user?.id,
         name: e.target.Name.value,
         email: e.target.Email.value
     }

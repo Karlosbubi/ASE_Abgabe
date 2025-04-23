@@ -36,13 +36,11 @@ export class UserService {
   }
 
   async updateById(id: number, updateUserDto: UpdateUserDto) {
-    if (updateUserDto === undefined) {
+    if (updateUserDto === undefined || updateUserDto === null) {
       throw new BadRequestException("Provide valid 'UpdateUserDTO'");
     }
 
     let user = await this.db.get_user_by_id(id);
-    console.log(updateUserDto);
-
     if (updateUserDto.password) {
       updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
       user = await this.db.update_user_password_by_id(
