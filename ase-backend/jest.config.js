@@ -25,7 +25,7 @@ module.exports = {
   },
   modulePaths: ['<rootDir>'],
   moduleFileExtensions: ['js', 'json', 'ts'],
-  testRegex: '.spec.ts$',
+  testRegex: '^(?!.*\\.e2e-spec\\.ts$).*\\.spec\\.ts$', // exclude end to end tests
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
 };
