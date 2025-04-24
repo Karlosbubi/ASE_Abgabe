@@ -9,10 +9,6 @@ import {
   Body,
   Delete,
 } from '@nestjs/common';
-import { MindmapService } from './mindmap.service';
-import { CreateMindmapDto } from '@/types/dto/CreateMindmapDto';
-import { AuthGuard } from '@/auth/auth.guard';
-import { Mindmap } from '@/types/db_entities/mindmap';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -21,9 +17,15 @@ import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { MindmapAccessListDto } from 'src/types/dto/MindmapAccessListDto';
+
+import { AuthGuard } from '@/auth/auth.guard';
+import { MindmapService } from './mindmap.service';
+
+import { CreateMindmapDto } from '@/types/dto/CreateMindmapDto';
 import { UpdateMindmapRightsDto } from '@/types/dto/UpdateMindmapRightsDto';
 import { MindmapUserListDto } from '@/types/dto/MindmapUserListDto';
+import { Mindmap } from '@/types/db_entities/mindmap';
+import { MindmapAccessListDto } from '@/types/dto/MindmapAccessListDto';
 
 @ApiBearerAuth()
 @Controller('mindmap')

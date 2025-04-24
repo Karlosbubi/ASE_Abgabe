@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MindmapList } from '../db_entities/mindmap';
+import { MindmapList } from '@/types/db_entities/mindmap';
 
 export class MindmapAccessListDto {
   @ApiProperty()
