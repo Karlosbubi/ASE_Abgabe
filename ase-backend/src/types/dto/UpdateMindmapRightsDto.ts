@@ -1,4 +1,4 @@
-import { Mindmap } from '../db_entities/mindmap';
+import { Mindmap } from '@/types/db_entities/mindmap';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,

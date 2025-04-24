@@ -11,9 +11,9 @@ import {
 } from '@xyflow/react';
 import { create } from 'zustand';
 import { nanoid } from 'nanoid/non-secure';
-import {GetCurrentUser} from "../../utils/storageWrapper.ts";
+import {GetCurrentUser} from "@/utils/storageWrapper.ts";
 import toast from 'react-hot-toast';
-import { queryClient } from '../../utils/queryClient.ts';
+import { queryClient } from '@/utils/queryClient.ts';
 
 export type RFState = {
     nodes: Node[];

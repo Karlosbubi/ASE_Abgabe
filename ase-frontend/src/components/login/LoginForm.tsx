@@ -1,5 +1,5 @@
 import React from "react";
-import { SetCurrentUserJwt } from "../../utils/storageWrapper.ts";
+import { SetCurrentUserJwt } from "@/utils/storageWrapper.ts";
 import {useNavigate} from "react-router-dom";
 import toast from 'react-hot-toast';
 

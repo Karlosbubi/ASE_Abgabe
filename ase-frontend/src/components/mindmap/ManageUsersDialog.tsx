@@ -7,7 +7,7 @@ import {
 } from "../../components/ui/dialog";
 import { Button } from "../../components/ui/button";
 import { useEffect, useState } from "react";
-import { GetCurrentUser } from "../../utils/storageWrapper.ts";
+import { GetCurrentUser } from "@/utils/storageWrapper.ts";
 import { Trash2, Check, X } from "lucide-react";
 import toast from "react-hot-toast";
 

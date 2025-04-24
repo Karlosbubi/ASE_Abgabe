@@ -1,4 +1,4 @@
-import {GetCurrentUser} from "../../utils/storageWrapper.ts";
+import {GetCurrentUser} from "@/utils/storageWrapper.ts";
 import React from "react";
 const user = GetCurrentUser();
 

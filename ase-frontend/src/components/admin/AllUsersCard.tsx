@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {GetCurrentUser} from "../../utils/storageWrapper.ts";
+import {GetCurrentUser} from "@/utils/storageWrapper.ts";
 
 const user = GetCurrentUser();
 const getAllUsers = async () => {

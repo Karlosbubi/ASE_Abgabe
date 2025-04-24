@@ -3,10 +3,10 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { DatabaseService } from '../db/database.service';
-import { CreateMindmapDto } from '../types/dto/CreateMindmapDto';
-import { User } from '../types/db_entities/user';
-import { Mindmap, MindmapRights } from '../types/db_entities/mindmap';
+import { DatabaseService } from '@/db/database.service';
+import { CreateMindmapDto } from '@/types/dto/CreateMindmapDto';
+import { User } from '@/types/db_entities/user';
+import { Mindmap, MindmapRights } from '@/types/db_entities/mindmap';
 
 @Injectable()
 export class MindmapService {

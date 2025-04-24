@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { DatabaseService } from '../db/database.service';
+import { DatabaseService } from '@/db/database.service';
 
 @Injectable()
 export class AdminGuard implements CanActivate {

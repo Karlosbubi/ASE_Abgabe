@@ -1,6 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import {SetCurrentUserJwt} from "../../utils/storageWrapper.ts";
+import {SetCurrentUserJwt} from "@/utils/storageWrapper.ts";
 import toast from 'react-hot-toast';
 
 function RegisterForm() {

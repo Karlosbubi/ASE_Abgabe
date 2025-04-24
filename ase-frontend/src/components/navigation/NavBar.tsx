@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X} from "lucide-react";
-import {ClearCurrentUser, GetCurrentUser} from "../../utils/storageWrapper.ts";
+import {ClearCurrentUser, GetCurrentUser} from "@/utils/storageWrapper.ts";
 import DownloadPNG from "../../components/mindmap/DownloadPNG.tsx";
 import DownloadSVG from "../../components/mindmap/DownloadSVG.tsx";
 

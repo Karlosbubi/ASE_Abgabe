@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NavBar from "../navigation/NavBar.tsx";
-import { GetCurrentUser } from "../../utils/storageWrapper.ts";
+import { GetCurrentUser } from "@/utils/storageWrapper.ts";
 import AllUsersCard from "../admin/AllUsersCard.tsx";
 
 const user = GetCurrentUser();

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Client } from 'pg';
-import { User } from '../types/db_entities/user';
-import { CreateUserDto } from '../types/dto/CreateUserDto';
-import { UpdateUserDto } from '../types/dto/UpdateUserDto';
-import { Mindmap, MindmapRights } from '../types/db_entities/mindmap';
-import { CreateMindmapDto } from '../types/dto/CreateMindmapDto';
-import { MindmapAccessListDto } from '../types/dto/MindmapAccessListDto';
-import { MindmapUserListDto } from '../types/dto/MindmapUserListDto';
+import { User } from '@/types/db_entities/user';
+import { CreateUserDto } from '@/types/dto/CreateUserDto';
+import { UpdateUserDto } from '@/types/dto/UpdateUserDto';
+import { Mindmap, MindmapRights } from '@/types/db_entities/mindmap';
+import { CreateMindmapDto } from '@/types/dto/CreateMindmapDto';
+import { MindmapAccessListDto } from '@/types/dto/MindmapAccessListDto';
+import { MindmapUserListDto } from '@/types/dto/MindmapUserListDto';
 
 @Injectable()
 export class DatabaseService {

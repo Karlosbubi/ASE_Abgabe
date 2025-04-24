@@ -8,18 +8,18 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto } from '../types/dto/CreateUserDto';
+import { CreateUserDto } from '@/types/dto/CreateUserDto';
 import { UserService } from './user.service';
-import { UpdateUserDto } from '../types/dto/UpdateUserDto';
-import { AuthGuard } from '../auth/auth.guard';
+import { UpdateUserDto } from '@/types/dto/UpdateUserDto';
+import { AuthGuard } from '@/auth/auth.guard';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
-import { User } from 'src/types/db_entities/user';
-import { AdminGuard } from '../auth/auth_admin.guard';
+import { User } from '@/types/db_entities/user';
+import { AdminGuard } from '@/auth/auth_admin.guard';
 
 @ApiBearerAuth()
 @Controller('user')

@@ -1,10 +1,10 @@
-import { GetCurrentUser } from "../../utils/storageWrapper.ts";
+import { GetCurrentUser } from "@/utils/storageWrapper.ts";
 import { useQuery } from "react-query";
 import useStore from "./Store.tsx";
 import { Trash2, Check, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import toast from "react-hot-toast"
-import { queryClient } from "../../utils/queryClient.ts";
+import { queryClient } from "@/utils/queryClient.ts";
 
 type Entry = {
     id: number;
