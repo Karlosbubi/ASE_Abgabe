@@ -10,7 +10,8 @@ import { MindmapUserListDto } from '../types/dto/MindmapUserListDto';
 
 @Injectable()
 export class DatabaseService {
-  connection_string: string = 'postgres://root:secret@localhost:5555/postgres';
+  connection_string: string =
+    process.env.DB_STRING ?? 'postgres://root:secret@localhost:5555/postgres';
 
   constructor() {}
 

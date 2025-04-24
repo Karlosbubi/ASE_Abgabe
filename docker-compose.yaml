@@ -8,19 +8,34 @@ services:
     volumes:
      - db:/var/lib/postgresql/data
      - ./db_init:/docker-entrypoint-initdb.d
+    ports:
+      - "4444:5432"
+    networks:
+      - app_network
+
 
   backend:
     build:
       context: ./ase-backend
       dockerfile: Dockerfile
+    environment:
+      - DB_STRING=postgres://root:secret@postgres/postgres
     ports:
       - "3000:3000"
+    networks:
+      - app_network
   frontend:
     build: 
       context: ./ase-frontend
       dockerfile: Dockerfile
     ports:
       - "8080:80"
+    networks:
+      - app_network
       
 volumes:
-  db: 
+  db:
+
+networks:
+  app_network: # Define the network
+    driver: bridge
