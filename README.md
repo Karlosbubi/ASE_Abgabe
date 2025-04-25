@@ -58,7 +58,7 @@ something something
 - [x] add Auth Roles (Will der Habeck unbedingt)
 - [x] Frontend: Export fixen (E/K)
 - [ ] Frontend: Admin Dashboard (D)
-- [ ] Frontend: User Profile (E)
+- [x] Frontend: User Profile (E)
 - [ ] Frontend: tests (D/E)
 - [ ] [Bonus] Frontend: Multi language support
 - [ ] [Bonus] Frontend: 1 week authentifiziert, danach automatisch ausloggen
