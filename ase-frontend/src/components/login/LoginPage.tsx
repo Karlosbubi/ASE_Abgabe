@@ -24,12 +24,12 @@ const LoginPage = () => {
                         <LoginForm />
                         <div className="text-center mt-4">
                             <p>
-                                Noch keinen Account?{" "}
+                                Don't have an account yet?{" "}
                                 <button
                                     onClick={handleShowRegisterForm}
                                     className="text-blue-500 hover:text-blue-700 focus:outline-none"
                                 >
-                                    Registrieren
+                                    Register now
                                 </button>
                             </p>
                         </div>
@@ -39,12 +39,12 @@ const LoginPage = () => {
                         <RegisterForm />
                         <div className="text-center mt-4">
                             <p>
-                                Schon einen Account?{" "}
+                                Already have an account?{" "}
                                 <button
                                     onClick={handleShowLoginForm}
                                     className="text-blue-500 hover:text-blue-700 focus:outline-none"
                                 >
-                                    Zurück zum Login
+                                    Login here
                                 </button>
                             </p>
                         </div>
