@@ -4,18 +4,70 @@ import { Button } from "../../components/ui/button";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { Eye, EyeOff } from "react-feather";
+import {GetCurrentUser} from "@/utils/storageWrapper.ts";
 
 const ChangePasswordDialog = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (password.length < 6) {
             toast.error("Password must be at least 6 characters.");
             return;
         }
-        toast.success("Password updated successfully!");
+        const toastId = toast.loading("Updating password...");
+
+        const user = GetCurrentUser();
+        if (!user?.JWT) {
+            toast.error("You must be logged in to update your password.");
+            toast.dismiss(toastId);
+            return;
+        }
+
+        try {
+            const requestOptions = {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.JWT,
+                },
+                body: JSON.stringify({
+                    password: password,
+                }),
+            };
+
+            const response = await fetch("http://localhost:3000/user", requestOptions);
+
+            if (response.ok) {
+                toast.dismiss(toastId);
+                toast.success("Password updated successfully.");
+            } else {
+                switch (response.status) {
+                    case 401:
+                        toast.dismiss(toastId);
+                        toast.error("Unauthorized. Please log in again.");
+                        break;
+                    case 404:
+                        toast.dismiss(toastId);
+                        toast.error("No user found with the provided ID.");
+                        break;
+                    case 500:
+                        toast.dismiss(toastId);
+                        toast.error("Internal server error. Please try again later.");
+                        break;
+                    default:
+                        toast.dismiss(toastId);
+                        toast.error("An unknown error occurred.");
+                        break;
+                }
+            }
+        } catch (error) {
+            toast.dismiss(toastId);
+            toast.error("Something went wrong. Please try again later.");
+            console.error(error);
+        }
+
         setPassword("");
         onClose();
     };
