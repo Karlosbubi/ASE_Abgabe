@@ -36,7 +36,7 @@ something something
 - [x] Als Nutzer möchte ich ein Nutzerkonto anlegen können, um mehrere Mindmaps zu verwalten
 - [ ] Als Nutzer möchte ich E-Mail-Adresse und Passwort meines Kontos änderen können
 - [x] Als Nutzer möchte ich neue Inhalte auf meine Mindmap hinzufügen können
-- [ ] Als Nutzer möchte ich meine Mindmaps exportieren können
+- [x] Als Nutzer möchte ich meine Mindmaps exportieren können
 - [x] [Bonus] Als Nutzer möchte ich meine Mindmaps mit anderen Nutzern teilen können
 - [x] [Bonus] Als einladender Nutzer möchte ich mitlesende wieder entfernen können
 - [x] [Bonus] Als einladender Nutzer möchte ich Lese-/Schreibrechte der anderen verwalten können
@@ -56,7 +56,7 @@ something something
 - [x] Frontend mal anfangen
 - [x] Docker Daten persintenz gegen checken
 - [x] add Auth Roles (Will der Habeck unbedingt)
-- [ ] Frontend: Export fixen (E)
+- [x] Frontend: Export fixen (E/K)
 - [ ] Frontend: Admin Dashboard (D)
 - [ ] Frontend: User Profile (E)
 - [ ] Frontend: tests (D/E)
