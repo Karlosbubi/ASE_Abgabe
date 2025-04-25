@@ -1,50 +1,65 @@
-import {GetCurrentUser} from "@/utils/storageWrapper.ts";
 import React from "react";
-const user = GetCurrentUser();
 
-const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const dto = {
-        name: e.target.Name.value,
-        email: e.target.Email.value,
-    }
-
-    console.log(dto);
-
-    const requestOptions = {
-        method: 'PATCH',
-        headers: {'Authorization': `Bearer ${user?.JWT}`, 'Content-Type': 'application/json'},
-        body: JSON.stringify(dto),
-    };
-
-    await fetch("http://localhost:3000/user", requestOptions).then( async response => {
-        const json = await response.json();
-        console.log(json);
-    });
+interface PersonalInfoCardProps {
+    name: string | undefined;
+    email: string | undefined;
+    onChangeInfo: () => void;
+    onChangePassword: () => void;
 }
 
-const PersonalInfoCard = () => {
+const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChangeInfo, onChangePassword }) => {
     return (
-        <div className="w-full max-w-xs bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h1 className="text-center font-bold">Personal Info</h1>
+        <div className="relative w-full max-w-100 mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
+            {/* Personal Info Card */}
+            <div>
+                <h2 className="text-xl font-bold">Personal Information</h2>
+                <div className="mt-4">
+                    {/* Name Input (disabled) */}
+                    <div className="mb-4">
+                        <label htmlFor="name" className="block text-gray-700">Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            value={name}
+                            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                            placeholder="Enter your name"
+                            disabled
+                        />
+                    </div>
 
-            <form onSubmit={handleSubmit}>
-                <label className="block text-gray-700 text-sm font-bold mb-2">Name:
-                <input type="text" name="Name" defaultValue={user?.name}
-                       className="w-full px-3 py-2 text-gray-700 border rounded"/>
-                </label>
+                    {/* Email Input (disabled) */}
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-gray-700">Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            value={email}
+                            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                            placeholder="Enter your email"
+                            disabled
+                        />
+                    </div>
+                </div>
+            </div>
 
-                <label className="block text-gray-700 text-sm font-bold mb-2">E-Mail:
-                <input type="text" name="Email" defaultValue={user?.email}
-                       className="w-full px-3 py-2 text-gray-700 border rounded"/>
-                </label>
+            {/* "Change Info" and "Change Password" Links */}
+            <div className="mt-4">
+                {/* "Change Info" Link */}
+                <span
+                    onClick={onChangeInfo}
+                    className="block text-black cursor-pointer underline"
+                >
+                    Change Info...
+                </span>
 
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                    <input type="submit" name="Submit" value="Change"
-                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
-                </label>
-            </form>
+                {/* "Change Password" Link */}
+                <span
+                    onClick={onChangePassword}
+                    className="block text-black cursor-pointer underline mt-2"
+                >
+                    Change Password...
+                </span>
+            </div>
         </div>
     );
 };
