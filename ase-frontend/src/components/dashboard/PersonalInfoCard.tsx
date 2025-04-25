@@ -89,7 +89,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                     onClick={onChangeInfo}
                     className="block text-black cursor-pointer underline"
                 >
-                    Change Info...
+                    Change Information...
                 </span>
 
                 {/* "Change Password" Link */}

@@ -62,7 +62,7 @@ const ExportImageDialog = () => {
         <Dialog>
             <DialogTrigger asChild>
                 <button className="bg-white hover:bg-gray-100 text-gray-800 px-4 py-2 rounded-lg text-base font-medium shadow border">
-                    Export as Image ...
+                    Export ...
                 </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-sm">
