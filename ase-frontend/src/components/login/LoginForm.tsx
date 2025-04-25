@@ -7,9 +7,8 @@ function LoginForm() {
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-        toast.loading("Logging you in...")
-
         e.preventDefault();
+        toast.loading("Logging you in...");
 
         const dto = {
             email: e.target.Email.value,
@@ -20,18 +19,45 @@ function LoginForm() {
 
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(dto),
         };
 
-        await fetch("http://localhost:3000/auth", requestOptions).then( async response => {
+        try {
+            const response = await fetch("http://localhost:3000/auth", requestOptions);
+
+            if (!response.ok) {
+                toast.dismiss();
+                switch (response.status) {
+                    case 401:
+                        toast.error("The email or password you entered is incorrect. Please try again.");
+                        break;
+                    case 500:
+                        toast.error("Internal server error. Please try again later.");
+                        break;
+                    default:
+                        toast.error("An unexpected error occurred. Please try again later.");
+                        break;
+                }
+                return;
+            }
+
             const json = await response.json();
             console.log(json);
+
             SetCurrentUserJwt(json.JWT);
             navigate("/");
-            toast.dismiss()
+
+            toast.dismiss();
             toast.success("Logged in successfully.");
-        });
+
+        } catch (error) {
+            toast.dismiss();
+            toast.error("Something went wrong. Please check your connection and try again.");
+            console.error("Error during login:", error);
+        }
     };
 
     return <>
