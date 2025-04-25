@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { GetCurrentUser } from "@/utils/storageWrapper.ts";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom"; // Importiere useNavigate
 
 interface PersonalInfoCardProps {
     name: string | undefined;
@@ -18,6 +19,7 @@ interface MindmapList {
 
 const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChangeInfo, onChangePassword }) => {
     const user = GetCurrentUser();
+    const navigate = useNavigate(); // Hier den Hook verwenden
 
     const { isLoading, error, data } = useQuery<MindmapList, Error>({
         queryKey: ["get_mindmap_list"],
@@ -43,7 +45,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
     });
 
     if (error) {
-        return <p>Error: {error.message}</p>; // Hier den Fehler verwenden
+        return <p>Error: {error.message}</p>; // Fehlerbehandlung
     }
 
     return (
@@ -121,6 +123,16 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                         <span className="text-sm text-gray-500">Read Only</span>
                     </div>
                 </div>
+            </div>
+
+            {/* Button to navigate to mindmaps */}
+            <div className="mt-4 text-center">
+                <button
+                    onClick={() => navigate("/")}
+                    className="px-6 py-2 bg-white text-black border border-gray-300 rounded-md hover:bg-gray-100 w-full"
+                >
+                    My Mindmaps
+                </button>
             </div>
         </div>
     );
