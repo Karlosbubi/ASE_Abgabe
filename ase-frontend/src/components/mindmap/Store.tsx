@@ -28,6 +28,7 @@ export type RFState = {
     saveMindMap: () => void;
     createMindMap: () => void;
     shareMindMap: (emails: string[], readOnly: boolean) => void;
+    centerMindmapForExport: () => Node[];
 };
 
 const useStore = create<RFState>((set, get) => ({
@@ -337,6 +338,29 @@ const useStore = create<RFState>((set, get) => ({
             console.error("Error while sharing mindmap:", error);
             toast.error("An error occurred while sharing the mindmap.");
         }
+    },
+
+    centerMindmapForExport: () => {
+        const nodes = get().nodes;
+
+        const minX = Math.min(...nodes.map(n => n.position.x));
+        const maxX = Math.max(...nodes.map(n => n.position.x));
+        const minY = Math.min(...nodes.map(n => n.position.y));
+        const maxY = Math.max(...nodes.map(n => n.position.y));
+
+        const centerX = (minX + maxX) / 2;
+        const centerY = (minY + maxY) / 2;
+
+        const offsetX = -centerX;
+        const offsetY = -centerY;
+
+        return nodes.map(n => ({
+            ...n,
+            position: {
+                x: n.position.x + offsetX,
+                y: n.position.y + offsetY,
+            }
+        }));
     },
 }));
 

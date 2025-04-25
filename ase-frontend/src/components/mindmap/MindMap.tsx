@@ -17,6 +17,7 @@ import MindMapNode from './MindMapNode.tsx';
 import MindMapEdge from './MindMapEdge.tsx';
 import useStore, { type RFState } from './Store.tsx';
 import ShareMindmapDialog from "./ShareMindmapDialog.tsx";
+import ExportMindmapDialog from "./ExportMindmapDialog.tsx";
 import HelpButton from './HelpButton.tsx';
 import { GetCurrentUser } from "@/utils/storageWrapper.ts";
 
@@ -146,6 +147,7 @@ const MindMap = () => {
                         Save
                     </button>
                     {isOwner && <ShareMindmapDialog />}
+                    <ExportMindmapDialog />
                 </div>
             </Panel>
             <Panel position="top-right">
