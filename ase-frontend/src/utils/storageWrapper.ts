@@ -45,3 +45,32 @@ export function SetCurrentUser(user : User | null) : void {
 export function ClearCurrentUser() : void {
     localStorage.removeItem(localStorageKeys.CurrentUser);
 }
+
+export async function ReloadCurrentUser() : Promise<void> {
+    const user = GetCurrentUser();
+
+    if (!user) {
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3000/user", {
+            method: "GET",
+            headers: { 'Authorization': 'Bearer ' + user.JWT },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            user.id = data.id;
+            user.name = data.name;
+            user.email = data.email;
+
+            SetCurrentUser(user);
+        } else {
+            console.error("Error reloading user:", response.status);
+        }
+    } catch (error) {
+        console.error("Error while sending HTTP request:", error);
+    }
+}

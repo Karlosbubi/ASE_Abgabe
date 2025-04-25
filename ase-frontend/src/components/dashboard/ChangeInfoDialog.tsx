@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogFooter, DialogTitle } from "
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import { Checkbox } from "../../components/ui/checkbox";
-import { GetCurrentUser } from "@/utils/storageWrapper.ts";
+import { GetCurrentUser, ReloadCurrentUser } from "@/utils/storageWrapper.ts";
 import { User } from "@/DTO/user.ts";
 import toast from "react-hot-toast";
 
@@ -68,6 +68,12 @@ const ChangeInfoDialog = ({ isOpen, onClose, name, email }: {
             if (response.ok) {
                 toast.dismiss(toastId);
                 toast.success("User information updated successfully.");
+                ReloadCurrentUser();
+                toast.loading("Reloading...")
+
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 switch (response.status) {
                     case 401:

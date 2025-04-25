@@ -12,10 +12,6 @@ const ChangePasswordDialog = ({ isOpen, onClose }: { isOpen: boolean, onClose: (
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (password.length < 6) {
-            toast.error("Password must be at least 6 characters.");
-            return;
-        }
         const toastId = toast.loading("Updating password...");
 
         const user = GetCurrentUser();
