@@ -33,6 +33,7 @@ something something
 #### Cypress
 1. Ensure that cypress ist installed by running `pnpm install` in `ase-frontend`
 2. Run cypress all E2E tests with `pnpm cypress run`
+- Note: Running E2E test will create a test user `newuser` inside the database
 
 ## User storys
 
