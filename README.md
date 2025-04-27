@@ -28,6 +28,12 @@ something something
    - Node stops with `Ctrl+C`
    - Database `docker compose -f docker-compose_dev_db.yaml down`
 
+## Tests
+### Frontend
+#### Cypress
+1. Ensure that cypress ist installed by running `pnpm install` in `ase-frontend`
+2. Run cypress all E2E tests with `pnpm cypress run`
+
 ## User storys
 
 ### normaler Nutzer
