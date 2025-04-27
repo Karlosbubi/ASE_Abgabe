@@ -6,6 +6,8 @@ describe('User Registration, Login, and Logout', () => {
   });
 
   it('should register a new user and verify user is stored in localStorage', () => {
+    const websiteUrl = Cypress.env('websiteUrl');
+
     cy.visit('/login');
     cy.contains('Register now').click();
 
@@ -20,7 +22,7 @@ describe('User Registration, Login, and Logout', () => {
     cy.get('input[name="Password"]').type(user.password);
     cy.contains('Register Now').click();
 
-    cy.url().should('eq', 'http://localhost:5173/');
+    cy.url().should('eq', `${websiteUrl}/`);
 
     cy.window().then((win) => {
       const currentUser = win.localStorage.getItem('CURRENT_USER');
@@ -38,6 +40,8 @@ describe('User Registration, Login, and Logout', () => {
   });
 
   it('should log in the newly registered user and verify login', () => {
+    const websiteUrl = Cypress.env('websiteUrl');
+
     cy.visit('/login');
 
     const user = {
@@ -50,7 +54,7 @@ describe('User Registration, Login, and Logout', () => {
 
     cy.contains('Log In').click();
 
-    cy.url().should('eq', 'http://localhost:5173/');
+    cy.url().should('eq', `${websiteUrl}/`);
 
     cy.window().then((win) => {
       const currentUser = win.localStorage.getItem('CURRENT_USER');
@@ -65,6 +69,8 @@ describe('User Registration, Login, and Logout', () => {
   });
 
   it('should log out the user and verify localStorage is cleared', () => {
+    const websiteUrl = Cypress.env('websiteUrl');
+
     cy.visit('/login');
     const user = {
       email: 'newuser@example.com',
@@ -76,7 +82,7 @@ describe('User Registration, Login, and Logout', () => {
 
     cy.contains('Log In').click();
 
-    cy.url().should('eq', 'http://localhost:5173/');
+    cy.url().should('eq', `${websiteUrl}/`);
 
     cy.window().then((win) => {
       const currentUser = win.localStorage.getItem('CURRENT_USER');
@@ -85,7 +91,7 @@ describe('User Registration, Login, and Logout', () => {
 
     cy.get('a').contains('Logout').click();
 
-    cy.url().should('eq', 'http://localhost:5173/');
+    cy.url().should('eq', `${websiteUrl}/`);
 
     cy.window().then((win) => {
       const currentUser = win.localStorage.getItem('CURRENT_USER');
