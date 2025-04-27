@@ -77,6 +77,7 @@ function MindmapList() {
 
         return (
             <div
+                data-id={map.id}
                 onClick={!confirmingDelete ? onClick : undefined}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => {
