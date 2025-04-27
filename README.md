@@ -31,9 +31,10 @@ something something
 ## Tests
 ### Frontend
 #### Cypress
-1. Ensure that cypress ist installed by running `pnpm install` in `ase-frontend`
-2. Run cypress all E2E tests with `pnpm cypress run`
+1. Ensure that Cypress is installed by running `pnpm install` in `ase-frontend`.
+2. Run all Cypress E2E tests with `pnpm cypress run`.
 - Note: Running E2E test will create a test user `newuser` inside the database
+- **Important!**: When using Electron (the default browser in Cypress), you may encounter issues where Mindmap components in the panel (e.g., buttons) are covered or not fully visible. To avoid this, it is recommended to run the tests in Google Chrome by using the following command: `pnpm cypress run --browser chrome`
 
 ## User storys
 
