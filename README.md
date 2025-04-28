@@ -71,7 +71,7 @@ something something
 - [ ] [Bonus] Frontend: Multi language support
 - [ ] [Bonus] Frontend: 1 week authentifiziert, danach automatisch ausloggen
 - [ ] Backend: tests (K)
-- [ ] Backend: fix mit Share auf eigenen owner (K)
+- [x] Backend: fix mit Share auf eigenen owner (K)
 - [ ] Doku: README, Aufsetzen der Anwendung (K)
 - [ ] Doku: README, Tests ausführen (K)
 - [ ] Doku: User Storys schönmachen (E)
