@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test:chrome": "pnpm cypress run --browser chrome"
+    "test": "pnpm cypress run",
+    "test:chrome": "pnpm cypress run --browser chrome",
+    "test:firefox": "pnpm cypress run --browser firefox"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.5",
