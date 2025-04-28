@@ -62,6 +62,7 @@ export class UserService {
   }
 
   async deleteById(id: number) {
+    console.log(id)
     await this.db.delete_user_by_id(id);
   }
 }
