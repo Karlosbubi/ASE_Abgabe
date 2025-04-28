@@ -38,7 +38,6 @@ export class UserService {
   }
 
   async findAll() {
-    console.log('All users acquired');
     return await this.db.findAll();
   }
 

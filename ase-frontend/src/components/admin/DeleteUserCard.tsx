@@ -7,27 +7,21 @@ const DeleteUserCard = () => {
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const dto = {
-            id: e.target.ID.value,
-        }
-
-        console.log(dto);
+        const user_id = e.target.ID.value;
 
         const requestOptions = {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 Authorization: `Bearer ${user?.JWT}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(dto),
         };
 
         try {
-            const response = await fetch("http://localhost:3000/user", requestOptions);
-            if (response.status === 200) {
+            const response = await fetch(`http://localhost:3000/admin/deleteUser/${user_id}`, requestOptions);
+            if (response.ok) {
                 toast.success("User Deleted");
-            } else {
-                toast.error("Error Occurred");
+                window.location.reload();
             }
         } catch (error) {
             toast.dismiss();
