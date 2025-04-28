@@ -4,6 +4,7 @@ import { UpdateUserDto } from '@/types/dto/UpdateUserDto';
 import { DatabaseService } from '@/db/database.service';
 import { with_ } from '@/utils/with';
 import * as bcrypt from 'bcrypt';
+import { SuspendUserDto } from '@/types/dto/SuspendUserDto';
 
 @Injectable()
 export class UserService {
@@ -65,7 +66,15 @@ export class UserService {
   }
 
   async deleteById(id: number) {
-    console.log(id)
+    console.log(id);
     await this.db.delete_user_by_id(id);
+  }
+
+  async suspend_by_id(suspendUser: SuspendUserDto) {
+    const user_id = Number(suspendUser.userId);
+    return this.db.update_user_suspension_by_id(
+      user_id,
+      suspendUser.suspension,
+    );
   }
 }

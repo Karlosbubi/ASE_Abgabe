@@ -20,6 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { User } from '@/types/db_entities/user';
 import { AdminGuard } from '@/auth/auth_admin.guard';
+import { SuspendUserDto } from '@/types/dto/SuspendUserDto';
 
 @ApiBearerAuth()
 @Controller('user')
@@ -40,14 +41,6 @@ export class UserController {
     return this.userService.findById(request['user'].id);
   }
 
-  @Get('allUsers')
-  @UseGuards(AdminGuard)
-  @ApiOkResponse({ description: 'Found Users', type: User })
-  @ApiNotFoundResponse({ description: 'Meh' })
-  findAll() {
-    return this.userService.findAll();
-  }
-
   @Patch()
   @UseGuards(AuthGuard)
   @ApiOkResponse({ description: 'Updated User', type: User })
@@ -62,5 +55,21 @@ export class UserController {
   @ApiNotFoundResponse({ description: 'No User with this id' })
   delete(@Req() request) {
     return this.userService.deleteById(request['user'].id);
+  }
+
+  // ADMIN Tasks
+
+  @Get('allUsers')
+  @UseGuards(AdminGuard)
+  @ApiOkResponse({ description: 'Found Users', type: User })
+  @ApiNotFoundResponse({ description: 'Meh' })
+  findAll() {
+    return this.userService.findAll();
+  }
+
+  @Post('admin/suspend')
+  @UseGuards(AdminGuard)
+  suspendUser(@Body() suspendUserDto: SuspendUserDto) {
+    return this.userService.suspend_by_id(suspendUserDto);
   }
 }

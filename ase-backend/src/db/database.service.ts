@@ -126,10 +126,7 @@ export class DatabaseService {
     }
   }
 
-  async update_user_name_by_id(
-    id: number,
-    name: string,
-  ): Promise<User> {
+  async update_user_name_by_id(id: number, name: string): Promise<User> {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
 
@@ -147,16 +144,34 @@ export class DatabaseService {
     }
   }
 
-  async update_user_email_by_id(
-    id: number,
-    email: string,
-  ): Promise<User> {
+  async update_user_email_by_id(id: number, email: string): Promise<User> {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
 
     const query_text =
       'update mindmap_user set email = $2 where id = $1 returning *;';
     const query_values = [id, email];
+
+    try {
+      const result = await client.query<User>(query_text, query_values);
+      return result.rows[0];
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      await client.end();
+    }
+  }
+
+  async update_user_suspension_by_id(
+    id: number,
+    suspend: boolean,
+  ): Promise<User> {
+    const client = new Client({ connectionString: this.connection_string });
+    await client.connect();
+
+    const query_text =
+      'update mindmap_user set issuspended = $2 where id = $1 returning *;';
+    const query_values = [id, suspend];
 
     try {
       const result = await client.query<User>(query_text, query_values);
