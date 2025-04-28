@@ -21,7 +21,10 @@ export class UserService {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
 
     const user = await this.db.create_user(createUserDto);
-    return with_(user, { password: '*****' });
+    if (user) {
+      return with_(user, { password: '*****' });
+    }
+    throw new BadRequestException();
   }
 
   //Argument `where` of type UserWhereUniqueInput needs at least one of `id` arguments. Available options are marked with ?.

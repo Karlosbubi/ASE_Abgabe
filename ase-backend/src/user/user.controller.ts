@@ -37,7 +37,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @ApiOkResponse({ description: 'Found User', type: User })
   @ApiNotFoundResponse({ description: 'No User with this id' })
-  findById(@Req() request) {
+  findById(@Req() request: Request) {
     return this.userService.findById(request['user'].id);
   }
 
@@ -45,7 +45,7 @@ export class UserController {
   @UseGuards(AuthGuard)
   @ApiOkResponse({ description: 'Updated User', type: User })
   @ApiNotFoundResponse({ description: 'No User with this id' })
-  update(@Req() request, @Body() updateUserDto: UpdateUserDto) {
+  update(@Req() request: Request, @Body() updateUserDto: UpdateUserDto) {
     console.log(updateUserDto);
     return this.userService.updateById(request['user'].id, updateUserDto);
   }
@@ -53,7 +53,7 @@ export class UserController {
   @Delete()
   @UseGuards(AuthGuard)
   @ApiNotFoundResponse({ description: 'No User with this id' })
-  delete(@Req() request) {
+  delete(@Req() request: Request) {
     return this.userService.deleteById(request['user'].id);
   }
 
