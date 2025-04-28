@@ -2,13 +2,14 @@ import React from "react";
 import { useQuery } from "react-query";
 import { GetCurrentUser } from "@/utils/storageWrapper.ts";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom"; // Importiere useNavigate
+import { useNavigate } from "react-router-dom";
 
 interface PersonalInfoCardProps {
     name: string | undefined;
     email: string | undefined;
     onChangeInfo: () => void;
     onChangePassword: () => void;
+    onDeleteAccount: () => void;
 }
 
 interface MindmapList {
@@ -17,9 +18,9 @@ interface MindmapList {
     read_only: { id: number; title: string }[];
 }
 
-const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChangeInfo, onChangePassword }) => {
+const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChangeInfo, onChangePassword, onDeleteAccount }) => {
     const user = GetCurrentUser();
-    const navigate = useNavigate(); // Hier den Hook verwenden
+    const navigate = useNavigate();
 
     const { isLoading, error, data } = useQuery<MindmapList, Error>({
         queryKey: ["get_mindmap_list"],
@@ -45,7 +46,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
     });
 
     if (error) {
-        return <p>Error: {error.message}</p>; // Fehlerbehandlung
+        return <p>Error: {error.message}</p>;
     }
 
     return (
@@ -54,7 +55,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
             <div>
                 <h2 className="text-xl font-bold">Personal Information</h2>
                 <div className="mt-4">
-                    {/* Name Input (disabled) */}
+                    {/* Name */}
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-gray-700">Name</label>
                         <input
@@ -67,7 +68,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                         />
                     </div>
 
-                    {/* Email Input (disabled) */}
+                    {/* Email */}
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-gray-700">Email</label>
                         <input
@@ -82,9 +83,8 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                 </div>
             </div>
 
-            {/* "Change Info" and "Change Password" Links */}
+            {/* Links */}
             <div className="mt-4">
-                {/* "Change Info" Link */}
                 <span
                     onClick={onChangeInfo}
                     className="block text-black cursor-pointer underline"
@@ -92,32 +92,35 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                     Change Information...
                 </span>
 
-                {/* "Change Password" Link */}
                 <span
                     onClick={onChangePassword}
                     className="block text-black cursor-pointer underline mt-2"
                 >
                     Change Password...
                 </span>
+
+                <span
+                    onClick={onDeleteAccount}
+                    className="block text-red-600 cursor-pointer underline mt-2"
+                >
+                    Delete Account...
+                </span>
             </div>
 
-            {/* Statistik der Mindmaps */}
+            {/* Statistik */}
             <div className="mt-6">
                 <h3 className="text-lg font-semibold">My Statistics</h3>
                 <div className="mt-4 flex space-x-6">
-                    {/* Owned Mindmaps */}
                     <div className="flex flex-col items-center">
                         <span className="text-xl font-bold">{isLoading ? "..." : data?.own.length}</span>
                         <span className="text-sm text-gray-500">Owned</span>
                     </div>
 
-                    {/* Shared Mindmaps */}
                     <div className="flex flex-col items-center">
                         <span className="text-xl font-bold">{isLoading ? "..." : data?.edit.length}</span>
                         <span className="text-sm text-gray-500">Shared With Me</span>
                     </div>
 
-                    {/* Read-Only Mindmaps */}
                     <div className="flex flex-col items-center">
                         <span className="text-xl font-bold">{isLoading ? "..." : data?.read_only.length}</span>
                         <span className="text-sm text-gray-500">Read Only</span>
@@ -125,7 +128,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                 </div>
             </div>
 
-            {/* Button to navigate to mindmaps */}
+            {/* Button */}
             <div className="mt-4 text-center">
                 <button
                     onClick={() => navigate("/")}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ChangeInfoDialog from "./ChangeInfoDialog";
 import ChangePasswordDialog from "./ChangePasswordDialog";
+import DeleteAccountDialog from "./DeleteAccountDialog";
 import NavBar from "@/components/navigation/NavBar.tsx";
 import { GetCurrentUser } from "@/utils/storageWrapper.ts";
 import PersonalInfoCard from "@/components/dashboard/PersonalInfoCard";
@@ -8,6 +9,7 @@ import PersonalInfoCard from "@/components/dashboard/PersonalInfoCard";
 const Dashboard = () => {
     const [isChangeInfoDialogOpen, setIsChangeInfoDialogOpen] = useState(false);
     const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] = useState(false);
+    const [isDeleteAccountDialogOpen, setIsDeleteAccountDialogOpen] = useState(false);
 
     const user = GetCurrentUser();
 
@@ -16,6 +18,9 @@ const Dashboard = () => {
 
     const openChangePasswordDialog = () => setIsChangePasswordDialogOpen(true);
     const closeChangePasswordDialog = () => setIsChangePasswordDialogOpen(false);
+
+    const openDeleteAccountDialog = () => setIsDeleteAccountDialogOpen(true);
+    const closeDeleteAccountDialog = () => setIsDeleteAccountDialogOpen(false);
 
     return (
         <>
@@ -27,6 +32,7 @@ const Dashboard = () => {
                     email={user?.email}
                     onChangeInfo={openChangeInfoDialog}
                     onChangePassword={openChangePasswordDialog}
+                    onDeleteAccount={openDeleteAccountDialog}
                 />
 
                 {/* Change Info Dialog */}
@@ -41,6 +47,12 @@ const Dashboard = () => {
                 <ChangePasswordDialog
                     isOpen={isChangePasswordDialogOpen}
                     onClose={closeChangePasswordDialog}
+                />
+
+                {/* Delete Account Dialog */}
+                <DeleteAccountDialog
+                    isOpen={isDeleteAccountDialogOpen}
+                    onClose={closeDeleteAccountDialog}
                 />
             </div>
         </>
