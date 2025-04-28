@@ -40,7 +40,7 @@ export class DatabaseService {
   async findAll() {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
-    const query_text = `select id, name, email, isAdmin from mindmap_user;`;
+    const query_text = `select id, name, email, isadmin, issuspended from mindmap_user;`;
     try {
       const res = await client.query<User>(query_text);
       return res.rows;
