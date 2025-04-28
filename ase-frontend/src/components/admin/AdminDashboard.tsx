@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../navigation/NavBar.tsx";
 import { GetCurrentUser } from "@/utils/storageWrapper.ts";
-import AllUsersCard from "../admin/AllUsersCard.tsx";
+import ContentAdminDashboard from "../admin/ContentAdminDashboard.tsx";
 
 const user = GetCurrentUser();
 
@@ -46,14 +46,13 @@ const AdminDashboard = () => {
             <main className="pt-16">
                 <div className="flex justify-center items-start h-screen pt-20 bg-gray-200">
                     {isAdmin ? (
-                        <AllUsersCard />
+                        <ContentAdminDashboard />
                     ) : (
                         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                             <div className="text-center font-bold text-lg mb-4">
                                 <h1> Danger Zone </h1>
                             </div>
                             <p> You are not logged in as Admin </p>
-                            <p> state: {isAdmin} </p>
                         </div>
                     )}
                 </div>

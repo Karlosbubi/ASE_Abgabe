@@ -6,12 +6,19 @@ const getAllUsers = async () => {
     if (!user?.JWT) throw new Error("User not authenticated.");
     const requestOptions = {
         method: 'GET',
-        headers: { Authorization: `Bearer ${user?.JWT}` },
+        headers: {
+            Authorization: `Bearer ${user?.JWT}`,
+            'Content-Type': 'application/json',
+        },
     };
 
     const response = await fetch(`http://localhost:3000/user/allUsers`, requestOptions);
-    return await response.json();
 
+    if (response.status == 200) {
+        return response.json();
+    } else {
+        throw new Error("Something went wrong");
+    }
 };
 
 const AllUsersCard = () => {
@@ -36,7 +43,6 @@ const AllUsersCard = () => {
                         <th className="py-2 px-4 border-b">ID</th>
                         <th className="py-2 px-4 border-b">Name</th>
                         <th className="py-2 px-4 border-b">Email</th>
-                        <th className="py-2 px-4 border-b">IsAdmin</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,7 +51,6 @@ const AllUsersCard = () => {
                             <td className="py-2 px-4 border-b">{user.id}</td>
                             <td className="py-2 px-4 border-b">{user.name}</td>
                             <td className="py-2 px-4 border-b">{user.email}</td>
-                            <td className="py-2 px-4 border-b">{user.isAdmin}</td>
                         </tr>
                     ))}
                     </tbody>
