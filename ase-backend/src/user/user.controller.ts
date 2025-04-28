@@ -56,20 +56,4 @@ export class UserController {
   delete(@Req() request: Request) {
     return this.userService.deleteById(request['user'].id);
   }
-
-  // ADMIN Tasks
-
-  @Get('allUsers')
-  @UseGuards(AdminGuard)
-  @ApiOkResponse({ description: 'Found Users', type: User })
-  @ApiNotFoundResponse({ description: 'Meh' })
-  findAll() {
-    return this.userService.findAll();
-  }
-
-  @Post('admin/suspend')
-  @UseGuards(AdminGuard)
-  suspendUser(@Body() suspendUserDto: SuspendUserDto) {
-    return this.userService.suspend_by_id(suspendUserDto);
-  }
 }

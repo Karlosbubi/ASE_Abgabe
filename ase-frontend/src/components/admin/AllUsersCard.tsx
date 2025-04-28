@@ -9,7 +9,7 @@ const getAllUsers = async () => {
         headers: { Authorization: `Bearer ${user?.JWT}` },
     };
 
-    const response = await fetch(`http://localhost:3000/user/allUsers`, requestOptions);
+    const response = await fetch(`http://localhost:3000/admin/allUsers`, requestOptions);
     return await response.json();
 
 };
