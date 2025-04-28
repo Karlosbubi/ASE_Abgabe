@@ -175,7 +175,7 @@ function MindmapList() {
         <div className="space-y-4 p-4">
             <div>
                 <p className="font-semibold text-lg mb-2">My Mindmaps</p>
-                <div className="space-y-2">
+                <div className="space-y-2" data-testid="mindmap-list-own">
                     {data.own.map((m) => (
                         <MindmapCard
                             key={m.id}
@@ -189,7 +189,7 @@ function MindmapList() {
 
             <div>
                 <p className="font-semibold text-lg mb-2">Shared With Me</p>
-                <div className="space-y-2">
+                <div className="space-y-2" data-testid="mindmap-list-edit">
                     {data.edit.map((m) => (
                         <MindmapCard
                             key={m.id}
@@ -202,7 +202,7 @@ function MindmapList() {
 
             <div>
                 <p className="font-semibold text-lg mb-2">Read Only</p>
-                <div className="space-y-2">
+                <div className="space-y-2" data-testid="mindmap-list-readonly">
                     {data.read_only.map((m) => (
                         <MindmapCard
                             key={m.id}

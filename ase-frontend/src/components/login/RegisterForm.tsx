@@ -58,21 +58,21 @@ function RegisterForm() {
                 </div>
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                     Email:
-                    <input type="text" name="Email"
+                    <input type="text" name="Email" data-testid="register-email-input"
                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
                 </label>
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                     Username:
-                    <input type="text" name="Username"
+                    <input type="text" name="Username" data-testid="register-name-input"
                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
                 </label>
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                     Password:
-                    <input type="password" name="Password"
+                    <input type="password" name="Password" data-testid="register-password-input"
                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
                 </label>
                 <label>
-                    <input type="submit" name="Submit" value="Register Now"
+                    <input type="submit" name="Submit" value="Register Now" data-testid="register-now-button"
                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"/>
                 </label>
 

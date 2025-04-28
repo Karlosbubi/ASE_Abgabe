@@ -25,7 +25,7 @@ const LoginPage = () => {
                         <div className="text-center mt-4">
                             <p>
                                 Don't have an account yet?{" "}
-                                <button
+                                <button data-testid="register-now-link"
                                     onClick={handleShowRegisterForm}
                                     className="text-blue-500 hover:text-blue-700 focus:outline-none"
                                 >

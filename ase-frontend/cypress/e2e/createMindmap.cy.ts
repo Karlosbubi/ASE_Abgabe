@@ -4,7 +4,7 @@ describe('Mindmap creation tests', () => {
 
     before(() => {
         cy.visit('/login');
-        cy.contains('Register now').click();
+        cy.get('[data-testid="register-now-link"]').click();
 
         const user = {
             email: 'newuser@example.com',
@@ -12,10 +12,10 @@ describe('Mindmap creation tests', () => {
             password: 'password123',
         };
 
-        cy.get('input[name="Email"]').type(user.email);
-        cy.get('input[name="Username"]').type(user.username);
-        cy.get('input[name="Password"]').type(user.password);
-        cy.contains('Register Now').click();
+        cy.get('[data-testid="register-email-input"]').type(user.email);
+        cy.get('[data-testid="register-name-input"]').type(user.username);
+        cy.get('[data-testid="register-password-input"]').type(user.password);
+        cy.get('[data-testid="register-now-button"]').click();
     });
 
     it('should allow the user to create a mindmap and display it in the list', () => {
@@ -23,7 +23,7 @@ describe('Mindmap creation tests', () => {
 
         cy.intercept('POST', `${apiUrl}/mindmap`).as('createMindmapRequest');
 
-        cy.get('button').contains('Create').click();
+        cy.get('[data-testid="create-mindmap-button"]').click();
 
         cy.wait('@createMindmapRequest').then((interception) => {
             if (interception.response && interception.response.body) {
@@ -32,7 +32,7 @@ describe('Mindmap creation tests', () => {
                 newMindmapTitle = response.title;
 
                 if (typeof newMindmapTitle === 'string') {
-                    cy.get('.space-y-2')
+                    cy.get('[data-testid="mindmap-list-own"]')
                         .contains(newMindmapTitle)
                         .should('exist');
                 } else {
@@ -40,7 +40,7 @@ describe('Mindmap creation tests', () => {
                 }
 
                 if (typeof newMindmapId === 'number') {
-                    cy.get('.space-y-2')
+                    cy.get('[data-testid="mindmap-list-own"]')
                         .find(`[data-id="${newMindmapId}"]`)
                         .should('exist');
                 }

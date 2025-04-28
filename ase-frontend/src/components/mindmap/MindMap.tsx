@@ -134,7 +134,7 @@ const MindMap = () => {
             <Controls showInteractive={false} />
             <Panel position="top-left">
                 <div className="flex flex-col gap-4">
-                    <button
+                    <button data-testid="create-mindmap-button"
                         onClick={() => useStore.getState().createMindMap()}
                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-base font-medium shadow"
                     >

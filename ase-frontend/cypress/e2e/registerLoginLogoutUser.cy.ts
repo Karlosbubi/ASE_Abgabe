@@ -9,7 +9,7 @@ describe('User Registration, Login, and Logout', () => {
     const websiteUrl = Cypress.env('websiteUrl');
 
     cy.visit('/login');
-    cy.contains('Register now').click();
+    cy.get('[data-testid="register-now-link"]').click();
 
     const user = {
       email: 'newuser@example.com',
@@ -17,10 +17,10 @@ describe('User Registration, Login, and Logout', () => {
       password: 'password123',
     };
 
-    cy.get('input[name="Email"]').type(user.email);
-    cy.get('input[name="Username"]').type(user.username);
-    cy.get('input[name="Password"]').type(user.password);
-    cy.contains('Register Now').click();
+    cy.get('[data-testid="register-email-input"]').type(user.email);
+    cy.get('[data-testid="register-name-input"]').type(user.username);
+    cy.get('[data-testid="register-password-input"]').type(user.password);
+    cy.get('[data-testid="register-now-button"]').click();
 
     cy.url().should('eq', `${websiteUrl}/`);
 
@@ -49,10 +49,10 @@ describe('User Registration, Login, and Logout', () => {
       password: 'password123',
     };
 
-    cy.get('input[name="Email"]').type(user.email);
-    cy.get('input[name="Password"]').type(user.password);
+    cy.get('[data-testid="login-email-input"]').type(user.email);
+    cy.get('[data-testid="login-password-input"]').type(user.password);
 
-    cy.contains('Log In').click();
+    cy.get('[data-testid="log-in-button"]').click();
 
     cy.url().should('eq', `${websiteUrl}/`);
 
@@ -77,10 +77,10 @@ describe('User Registration, Login, and Logout', () => {
       password: 'password123',
     };
 
-    cy.get('input[name="Email"]').type(user.email);
-    cy.get('input[name="Password"]').type(user.password);
+    cy.get('[data-testid="login-email-input"]').type(user.email);
+    cy.get('[data-testid="login-password-input"]').type(user.password);
 
-    cy.contains('Log In').click();
+    cy.get('[data-testid="log-in-button"]').click();
 
     cy.url().should('eq', `${websiteUrl}/`);
 
@@ -89,7 +89,7 @@ describe('User Registration, Login, and Logout', () => {
       expect(currentUser).to.not.be.null;
     });
 
-    cy.get('a').contains('Logout').click();
+    cy.get('[data-testid="logout-link"]').click();
 
     cy.url().should('eq', `${websiteUrl}/`);
 

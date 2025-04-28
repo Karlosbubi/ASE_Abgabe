@@ -35,7 +35,7 @@ const NavBar = () => {
                     <div className="hidden md:flex space-x-6">
                         <a href="/dashboard" className="hover:text-blue-600"> Dashboard </a>
                         <a href="/admin" className="hover:text-blue-600"> Admin </a> {/*//TODO: meh*/}
-                        <a href="/" className="hover:text-blue-600" onClick={ClearCurrentUser}> Logout </a>
+                        <a href="/" className="hover:text-blue-600" onClick={ClearCurrentUser} data-testid="logout-link"> Logout </a>
                     </div>
                     <button
                         className="md:hidden p-2 rounded bg-gray-200"
