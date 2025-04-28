@@ -323,9 +323,9 @@ const useStore = create<RFState>((set, get) => ({
                 } else if (response.status === 404) {
                     toast.dismiss();
                     toast.error(`Mindmap or user not found for ${email}.`);
-                } else if (response.status === 500) {
+                } else if (response.status === 500 || response.status === 400) {
                     toast.dismiss();
-                    toast.error("Server error occurred. Please try again later.");
+                    toast.error("Invalid request.");
                 } else {
                     const errorText = await response.text();
                     console.error(`Unexpected error (${response.status}) for ${email}:`, errorText);
