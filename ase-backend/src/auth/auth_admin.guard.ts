@@ -28,7 +28,7 @@ export class AdminGuard implements CanActivate {
       const user = await this.databaseService.get_user_by_id(jwt_user.id);
       if (user) {
         request['user'] = user;
-        return user.isadmin;
+        return !user.issuspended && user.isadmin;
       }
     } catch {
       throw new UnauthorizedException();

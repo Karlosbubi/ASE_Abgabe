@@ -19,11 +19,12 @@ export class DatabaseService {
   async create_user(user: CreateUserDto): Promise<User> {
     const client = new Client({ connectionString: this.connection_string });
     await client.connect();
-    const query_text = `insert into mindmap_user(name, email, password, isadmin) values ($1, $2, $3, $4) returning *;`;
+    const query_text = `insert into mindmap_user(name, email, password, isadmin, issuspended) values ($1, $2, $3, $4, $5) returning *;`;
     const query_values: (string | boolean)[] = [
       user.name,
       user.email,
       user.password,
+      false,
       false,
     ];
     try {
