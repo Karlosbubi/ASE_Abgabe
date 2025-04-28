@@ -3,7 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '@/app.module';
 
-describe('App (e2e)', () => {
+describe('User Lifecycle (e2e)', () => {
   let app: INestApplication;
   let jwt: string;
 
@@ -33,6 +33,7 @@ describe('App (e2e)', () => {
             email: 'e2e@test.com',
             password: '*****',
             isadmin: false,
+            issuspended: false,
           }),
         );
       });

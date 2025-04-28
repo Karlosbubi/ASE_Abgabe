@@ -11,4 +11,6 @@ export class User {
   password: string;
   @ApiProperty()
   isadmin: boolean;
+  @ApiProperty()
+  issuspended: boolean;
 }

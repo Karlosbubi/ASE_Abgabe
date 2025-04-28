@@ -20,6 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { User } from '@/types/db_entities/user';
 import { AdminGuard } from '@/auth/auth_admin.guard';
+import { SuspendUserDto } from '@/types/dto/SuspendUserDto';
 
 @ApiBearerAuth()
 @Controller('user')
@@ -36,23 +37,15 @@ export class UserController {
   @UseGuards(AuthGuard)
   @ApiOkResponse({ description: 'Found User', type: User })
   @ApiNotFoundResponse({ description: 'No User with this id' })
-  findById(@Req() request) {
+  findById(@Req() request: Request) {
     return this.userService.findById(request['user'].id);
-  }
-
-  @Get('allUsers')
-  @UseGuards(AdminGuard)
-  @ApiOkResponse({ description: 'Found Users', type: User })
-  @ApiNotFoundResponse({ description: 'Meh' })
-  findAll() {
-    return this.userService.findAll();
   }
 
   @Patch()
   @UseGuards(AuthGuard)
   @ApiOkResponse({ description: 'Updated User', type: User })
   @ApiNotFoundResponse({ description: 'No User with this id' })
-  update(@Req() request, @Body() updateUserDto: UpdateUserDto) {
+  update(@Req() request: Request, @Body() updateUserDto: UpdateUserDto) {
     console.log(updateUserDto);
     return this.userService.updateById(request['user'].id, updateUserDto);
   }
@@ -60,7 +53,7 @@ export class UserController {
   @Delete()
   @UseGuards(AuthGuard)
   @ApiNotFoundResponse({ description: 'No User with this id' })
-  delete(@Req() request) {
+  delete(@Req() request: Request) {
     return this.userService.deleteById(request['user'].id);
   }
 }

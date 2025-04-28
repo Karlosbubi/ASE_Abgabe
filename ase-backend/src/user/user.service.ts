@@ -4,6 +4,7 @@ import { UpdateUserDto } from '@/types/dto/UpdateUserDto';
 import { DatabaseService } from '@/db/database.service';
 import { with_ } from '@/utils/with';
 import * as bcrypt from 'bcrypt';
+import { SuspendUserDto } from '@/types/dto/SuspendUserDto';
 
 @Injectable()
 export class UserService {
@@ -20,14 +21,20 @@ export class UserService {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10);
 
     const user = await this.db.create_user(createUserDto);
-    return with_(user, { password: '*****' });
+    if (user) {
+      return with_(user, { password: '*****' });
+    }
+    throw new BadRequestException();
   }
 
   //Argument `where` of type UserWhereUniqueInput needs at least one of `id` arguments. Available options are marked with ?.
   async findById(id: number) {
     console.log(id);
     const user = await this.db.get_user_by_id(id);
-    return with_(user, { password: '*****' });
+    if (user) {
+      return with_(user, { password: '*****' });
+    }
+    throw new BadRequestException();
   }
 
   async findAll() {
@@ -62,7 +69,15 @@ export class UserService {
   }
 
   async deleteById(id: number) {
-    console.log(id)
+    console.log(id);
     await this.db.delete_user_by_id(id);
+  }
+
+  async suspend_by_id(suspendUser: SuspendUserDto) {
+    const user_id = Number(suspendUser.userId);
+    return this.db.update_user_suspension_by_id(
+      user_id,
+      suspendUser.suspension,
+    );
   }
 }
