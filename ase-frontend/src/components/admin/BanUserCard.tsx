@@ -8,7 +8,7 @@ const BanUserCard = () => {
         e.preventDefault();
         const userId = e.target.ID.value;
         const dto = {
-            userId: userId,
+            userId: Number(userId),
             suspension: true,
         }
 
