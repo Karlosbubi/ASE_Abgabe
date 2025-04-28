@@ -27,7 +27,10 @@ export class UserService {
   async findById(id: number) {
     console.log(id);
     const user = await this.db.get_user_by_id(id);
-    return with_(user, { password: '*****' });
+    if (user) {
+      return with_(user, { password: '*****' });
+    }
+    throw new BadRequestException();
   }
 
   async findAll() {
