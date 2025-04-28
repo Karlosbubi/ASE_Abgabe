@@ -28,6 +28,7 @@ export class AuthService {
       name: user.name,
       email: user.email,
       isAdmin: user.isadmin,
+      isSuspended: user.issuspended,
     };
 
     return {

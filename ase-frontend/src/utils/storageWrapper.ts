@@ -19,6 +19,7 @@ interface CustomJwtPayload extends JwtPayload {
     name: string;
     email: string;
     isAdmin: boolean;
+    isSuspended: boolean;
 }
 
 export function SetCurrentUserJwt(jwt: string) : void {
@@ -28,7 +29,8 @@ export function SetCurrentUserJwt(jwt: string) : void {
         name: payload.name,
         email: payload.email,
         JWT: jwt,
-        isAdmin: payload.isAdmin
+        isAdmin: payload.isAdmin,
+        isSuspended: payload.isSuspended
     });
 
     SetCurrentUser(user);
