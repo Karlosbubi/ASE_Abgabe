@@ -12,8 +12,21 @@ Content-Type: application/json
 %}
 ###
 
+POST localhost:3000/auth
+Content-Type: application/json
+
+{
+  "email": "test",
+  "password": "test"
+}
+
+> {%
+    client.global.set("jwt", response.body.JWT);
+%}
 ###
-GET localhost:3000/user/allUsers
+
+###
+GET localhost:3000/admin/allUsers
 Authorization: Bearer {{jwt}}
 ###
 
