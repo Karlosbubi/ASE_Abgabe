@@ -16,8 +16,8 @@ POST localhost:3000/auth
 Content-Type: application/json
 
 {
-  "email": "request@test.com",
-  "password": "request"
+  "email": "test",
+  "password": "test"
 }
 
 > {%
