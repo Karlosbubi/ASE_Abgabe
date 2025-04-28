@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
       const user = await this.databaseService.get_user_by_id(jwt_user.id);
       if (user) {
         request['user'] = user;
-        return true;
+        return !user.issuspended;
       }
     } catch {
       throw new UnauthorizedException();

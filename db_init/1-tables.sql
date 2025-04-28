@@ -6,6 +6,7 @@ create table if not exists mindmap_user(
     email text not null,
     password text not null,
     isAdmin bool not null,
+    isSuspended bool not null,
     constraint unique_email unique (email)
 );
 
@@ -27,4 +28,8 @@ create table if not exists mindmap_rights (
       primary key (mindmap_user, mindmap),
       constraint write_implies_read
           check (not (can_write = true and can_read = false))
+);
+
+create table if not exists blacklist (
+    email text primary key
 );

@@ -1,0 +1,29 @@
+### POST /user - Create User
+POST localhost:3000/user
+Content-Type: application/json
+
+{
+  "name": "test_user",
+  "email": "request@test.com",
+  "password": "request"
+}
+###
+
+### POST /auth - Login User
+POST localhost:3000/auth
+Content-Type: application/json
+
+{
+  "email": "request@test.com",
+  "password": "request"
+}
+
+> {%
+    client.global.set("jwt", response.body.JWT);
+%}
+###
+
+### DELETE /user - Delete User
+DELETE localhost:3000/user
+Authorization: Bearer {{jwt}}
+###

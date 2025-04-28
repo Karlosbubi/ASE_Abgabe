@@ -1,0 +1,19 @@
+### POST /auth - Login User
+POST localhost:3000/auth
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin"
+}
+
+> {%
+    client.global.set("jwt", response.body.JWT);
+%}
+###
+
+###
+GET localhost:3000/user/allUsers
+Authorization: Bearer {{jwt}}
+###
+
