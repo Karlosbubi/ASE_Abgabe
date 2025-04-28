@@ -42,7 +42,7 @@ const DeleteUserCard = () => {
                 <form onSubmit={handleSubmit} className="px-8 pt-6 pb-8 mb-4">
                     <div className="flex items-center space-x-4">
                         <input
-                            type="text" name="ID" data-testid="login-email-input"
+                            type="text" name="ID"
                             className="shadow appearance-none border rounded w-full py-2 px-3
                         text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="User ID"/>
