@@ -18,12 +18,12 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 4. Open the Project directory (This one, where this file is) in a Terminal. ([cd](https://www.howtoforge.com/linux-cd-command) is also available in standard cmd and poweshell)
 5. Start everything, by excecuting the following command : `docker compose up`
    - For obvious reasons there is no workflow for anyone to register as an Admin, so to promote a user you need to connect to the database. In the configureation as provided the connection string is `postgres://root:secret@postgres:4444/postgres`. Use any DB Client of choice, PostgreSQL is widely supported, e.g. [DataGrip](https://www.jetbrains.com/datagrip/) or [DBeaver](https://github.com/dbeaver/dbeaver)
-6. Finally to stop the App.
+6. To stop the App.
    - Check if your terminal is still linked to the process.
    - If so, press `Strg+c`/`Ctrl-c`
    - If not run `docker compose stop` (still in Project directory)
 7. After beeing stopped, the stack can be resarted in its old state with `docker compose start`
-8. To Clean Everything up run : `docker compose down --volumes --remove-orphans`
+8. Finally To Clean Everything up run : `docker compose down --volumes --remove-orphans`
 >[!Warning]
 >The cleanup deletes the Database, therefore all user Data
 
