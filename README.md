@@ -11,6 +11,7 @@ TODO
 something something  
 `docker compose up`
 `docker compose down --volumes --remove-orphans`
+`postgres://root:secret@postgres:4444/postgres`
 
 ### Entwicklung
 
