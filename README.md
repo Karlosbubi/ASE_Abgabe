@@ -7,17 +7,31 @@
 
 ### Deployment
 
-TODO  
-something something  
-`docker compose up`
-`docker compose down --volumes --remove-orphans`
-`postgres://root:secret@postgres:4444/postgres`
+"If you wish to [run this App] from scratch, you must first invent the universe." -Carl Sagan
+We're a bit short of inventing the universe, so we'll assume you have a working computer.
 
-### Entwicklung
+1. Install the Docker engine following the [Official Instructions](https://docs.docker.com/engine/install/)
+2. Ensure Docker works including `docker compose`
+3. Download this Code
+   - Preferably using [git](https://git-scm.com/downloads). `git clone ...`
+   - Otherwise fall back to downloading and extracting the Zip archive.
+4. Open the Project directory (This one, where this file is) in a Terminal. ([cd](https://www.howtoforge.com/linux-cd-command) is also available in standard cmd and poweshell)
+5. Start everything, by excecuting the following command : `docker compose up`
+   - For obvious reasons there is no workflow for anyone to register as an Admin, so to promote a user you need to connect to the database. In the configureation as provided the connection string is `postgres://root:secret@postgres:4444/postgres`. Use any DB Client of choice, PostgreSQL is widely supported, e.g. [DataGrip](https://www.jetbrains.com/datagrip/) or [DBeaver](https://github.com/dbeaver/dbeaver)
+6. Finally to stop the App.
+   - Check if your terminal is still linked to the process.
+   - If so, press `Strg+c`/`Ctrl-c`
+   - If not run `docker compose stop` (still in Project directory)
+7. After beeing stopped, the stack can be resarted in its old state with `docker compose start`
+8. To Clean Everything up run : `docker compose down --volumes --remove-orphans`
+>[!Warning]
+>The cleanup deletes the Database, therefore all user Data
+
+### Development
 
 1. Enusre you have the required tools
-   - [NodeJS](https://nodejs.org/en/download/package-manager), recommended version 22.12
-   - [pnpm](https://pnpm.io/installation) (recommended or packagemanager of choice)
+   - [NodeJS](https://nodejs.org/en/download/package-manager), version 22.12
+   - [pnpm](https://pnpm.io/installation) (packagemanager of choice)
    - nest JS cli
    - docker and docker compose
 2. Get the repo `git clone git@github.com:Karlosbubi/ASE_Abgabe.git`
