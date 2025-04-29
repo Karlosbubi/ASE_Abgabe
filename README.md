@@ -32,8 +32,8 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 1. Enusre you have the required tools
    - [NodeJS](https://nodejs.org/en/download/package-manager), version 22.12
    - [pnpm](https://pnpm.io/installation) (packagemanager of choice)
-   - nest JS cli
-   - docker and docker compose
+   - [nest JS](https://nestjs.com/)
+   - [docker and docker compose](https://docs.docker.com/engine/install/)
 2. Get the repo `git clone git@github.com:Karlosbubi/ASE_Abgabe.git`
 3. Install dependencies with `pnpm install` for both frontend and backend
 4. Get started
@@ -45,12 +45,21 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
    - Database `docker compose -f docker-compose_dev_db.yaml down`
 
 ## Tests
+### Backend
+1. Navigate to `ase-backend`
+2. Ensure everthing is installed and up to date.
+3. start the dev_db, requreied for the e2e tests
+4. run
+   - `pnpm test` for unit test
+   - `pnpm test:e2e` for nest e2e test
 ### Frontend
 #### Cypress
 1. Ensure that Cypress is installed by running `pnpm install` in `ase-frontend`.
-2. Run all Cypress E2E tests with `pnpm cypress run`.
+2. Start the database and the backend.
+3. Run all Cypress E2E tests with `pnpm cypress run`.
 - Note: Running E2E test will create a test user `newuser` inside the database
 - **Important!**: When using Electron (the default browser in Cypress), you may encounter issues where Mindmap components in the panel (e.g., buttons) are covered or not fully visible. To avoid this, it is recommended to run the tests in Google Chrome by using the following command: `pnpm cypress run --browser chrome`
+- `pnpm test:chrome` and `pnpm test:firefox` are available and run cypress with the respecitve browser.
 
 ## User storys
 
@@ -58,7 +67,7 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 
 - [x] Als Nutzer möchte ich eine neue leere Mindmap erstellen können
 - [x] Als Nutzer möchte ich ein Nutzerkonto anlegen können, um mehrere Mindmaps zu verwalten
-- [ ] Als Nutzer möchte ich E-Mail-Adresse und Passwort meines Kontos änderen können
+- [x] Als Nutzer möchte ich E-Mail-Adresse und Passwort meines Kontos änderen können
 - [x] Als Nutzer möchte ich neue Inhalte auf meine Mindmap hinzufügen können
 - [x] Als Nutzer möchte ich meine Mindmaps exportieren können
 - [x] [Bonus] Als Nutzer möchte ich meine Mindmaps mit anderen Nutzern teilen können
@@ -69,7 +78,7 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 ### admin Nutzer
 
 - [ ] Als admin Nutzer möchte ich Statistiken über das Nutzverhalten einsehen können
-- [ ] Als admin Nutzer möchte ich Nutzerkonten sperren können
+- [x] Als admin Nutzer möchte ich Nutzerkonten sperren können
 
 ## Todos
 
@@ -84,10 +93,8 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 - [ ] Frontend: Admin Dashboard (D)
 - [x] Frontend: User Profile (E)
 - [ ] Frontend: tests (D/E)
-- [ ] [Bonus] Frontend: Multi language support
-- [ ] [Bonus] Frontend: 1 week authentifiziert, danach automatisch ausloggen
 - [ ] Backend: tests (K)
-- [x] Backend: fix mit Share auf eigenen owner (K)
-- [ ] Doku: README, Aufsetzen der Anwendung (K)
-- [ ] Doku: README, Tests ausführen (K)
+- [x] Backend: fix no Share auf eigenen owner (K)
+- [x] Doku: README, Aufsetzen der Anwendung (K)
+- [x] Doku: README, Tests ausführen (K)
 - [ ] Doku: User Storys schönmachen (E)
