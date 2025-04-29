@@ -7,7 +7,7 @@
 
 ### Deployment
 
-"If you wish to [run this App] from scratch, you must first invent the universe." -Carl Sagan
+"If you wish to [run this App] from scratch, you must first invent the universe." -Carl Sagan  
 We're a bit short of inventing the universe, so we'll assume you have a working computer.
 
 1. Install the Docker engine following the [Official Instructions](https://docs.docker.com/engine/install/)
