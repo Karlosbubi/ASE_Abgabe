@@ -10,6 +10,7 @@
 TODO  
 something something  
 `docker compose up`
+`docker compose down --volumes --remove-orphans`
 
 ### Entwicklung
 
