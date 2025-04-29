@@ -13,7 +13,7 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 1. Install the Docker engine following the [Official Instructions](https://docs.docker.com/engine/install/)
 2. Ensure Docker works including `docker compose`
 3. Download this Code
-   - Preferably using [git](https://git-scm.com/downloads). `git clone ...`
+   - Preferably using [git](https://git-scm.com/downloads). `git clone git@github.com:Karlosbubi/ASE_Abgabe.git`
    - Otherwise fall back to downloading and extracting the Zip archive.
 4. Open the Project directory (This one, where this file is) in a Terminal. ([cd](https://www.howtoforge.com/linux-cd-command) is also available in standard cmd and poweshell)
 5. Start everything, by excecuting the following command : `docker compose up`
