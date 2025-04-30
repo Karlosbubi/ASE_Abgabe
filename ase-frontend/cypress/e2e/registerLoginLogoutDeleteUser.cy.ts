@@ -12,9 +12,9 @@ describe('User Registration, Login, and Logout', () => {
     cy.get('[data-testid="register-now-link"]').click();
 
     const user = {
-      email: 'newuser@example.com',
-      username: 'newuser',
-      password: 'password123',
+      email: 'e2etestuser@example.com',
+      username: 'e2etestuser',
+      password: 'E2ETest123!',
     };
 
     cy.get('[data-testid="register-email-input"]').type(user.email);
@@ -45,8 +45,8 @@ describe('User Registration, Login, and Logout', () => {
     cy.visit('/login');
 
     const user = {
-      email: 'newuser@example.com',
-      password: 'password123',
+      email: 'e2etestuser@example.com',
+      password: 'E2ETest123!',
     };
 
     cy.get('[data-testid="login-email-input"]').type(user.email);
@@ -73,8 +73,8 @@ describe('User Registration, Login, and Logout', () => {
 
     cy.visit('/login');
     const user = {
-      email: 'newuser@example.com',
-      password: 'password123',
+      email: 'e2etestuser@example.com',
+      password: 'E2ETest123!',
     };
 
     cy.get('[data-testid="login-email-input"]').type(user.email);
@@ -104,8 +104,8 @@ describe('User Registration, Login, and Logout', () => {
     cy.visit('/login');
 
     const user = {
-      email: 'newuser@example.com',
-      password: 'password123',
+      email: 'e2etestuser@example.com',
+      password: 'E2ETest123!',
     };
 
     cy.get('[data-testid="login-email-input"]').type(user.email);

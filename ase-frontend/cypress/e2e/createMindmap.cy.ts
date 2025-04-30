@@ -9,9 +9,9 @@ describe('Mindmap creation tests', () => {
         cy.get('[data-testid="register-now-link"]').click();
 
         const user = {
-            email: 'newuser@example.com',
-            username: 'newuser',
-            password: 'password123',
+            email: 'e2etestuser@example.com',
+            username: 'e2etestuser',
+            password: 'E2ETest123!',
         };
 
         cy.get('[data-testid="register-email-input"]').type(user.email);
