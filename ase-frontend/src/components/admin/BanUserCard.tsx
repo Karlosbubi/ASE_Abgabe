@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {GetCurrentUser} from "@/utils/storageWrapper.ts";
 import toast from "react-hot-toast";
-import {Button} from "@/components/ui/button.tsx";
 
 const BanUserCard = () => {
     const [unbanMode, setUnbanMode] = useState(false);
