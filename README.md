@@ -60,8 +60,11 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 1. Ensure that Cypress is installed by running `pnpm install` in `ase-frontend`.
 2. Start the database and the backend.
 3. Run all Cypress E2E tests with `pnpm cypress run`.
-- Note: Running E2E test will create a test user `newuser` inside the database
-- **Important!**: When using Electron (the default browser in Cypress), you may encounter issues where Mindmap components in the panel (e.g., buttons) are covered or not fully visible. To avoid this, it is recommended to run the tests in Google Chrome by using the following command: `pnpm cypress run --browser chrome`
+- Note: Running E2E tests will create (and delete) the following test users inside the database:
+  - Email: e2etestuser@example.com; Username: e2etestuser; Password: E2ETest123!
+  - Email: updatede2etestuser@example.com; Username: updatede2etestuser; Password: E2ETest123!
+- **Important**: If the E2E tests are interrupted or fail prematurely, the test user may remain in the database. This can cause errors in subsequent tests, as the test user/email will already be taken. Make sure to delete the test user from the `mindmap_user` table in the database to avoid conflicts during future test runs.
+- **Important**: When using Electron (the default browser in Cypress), you may encounter issues where Mindmap components in the panel (e.g., buttons) are covered or not fully visible. To avoid this, it is recommended to run the tests in Google Chrome by using the following command: `pnpm cypress run --browser chrome`
 - `pnpm test:chrome` and `pnpm test:firefox` are available and run cypress with the respecitve browser.
 
 ## User storys
@@ -100,4 +103,3 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 - [x] Backend: fix no Share auf eigenen owner (K)
 - [x] Doku: README, Aufsetzen der Anwendung (K)
 - [x] Doku: README, Tests ausführen (K)
-- [ ] Doku: User Storys schönmachen (E)
