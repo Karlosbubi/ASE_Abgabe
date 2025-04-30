@@ -59,6 +59,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-gray-700">Name</label>
                         <input
+                            data-testid="dashboard-username"
                             id="name"
                             type="text"
                             value={name}
@@ -72,6 +73,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-gray-700">Email</label>
                         <input
+                            data-testid="dashboard-email"
                             id="email"
                             type="email"
                             value={email}
@@ -86,6 +88,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
             {/* Links */}
             <div className="mt-4">
                 <span
+                    data-testid="change-info-link"
                     onClick={onChangeInfo}
                     className="block text-black cursor-pointer underline"
                 >

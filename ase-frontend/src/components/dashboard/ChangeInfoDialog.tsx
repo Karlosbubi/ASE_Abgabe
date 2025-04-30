@@ -115,6 +115,7 @@ const ChangeInfoDialog = ({ isOpen, onClose, name, email }: {
                         <div className="grid gap-2">
                             <div className="flex items-center">
                                 <Checkbox
+                                    data-testid="change-username-checkbox"
                                     id="editName"
                                     checked={isNameChecked}
                                     onCheckedChange={(val) => setIsNameChecked(!!val)}
@@ -124,6 +125,7 @@ const ChangeInfoDialog = ({ isOpen, onClose, name, email }: {
                             </div>
                             {isNameChecked && (
                                 <Input
+                                    data-testid="change-username-input"
                                     id="newName"
                                     type="text"
                                     value={newName}
@@ -137,6 +139,7 @@ const ChangeInfoDialog = ({ isOpen, onClose, name, email }: {
                         <div className="grid gap-2">
                             <div className="flex items-center">
                                 <Checkbox
+                                    data-testid="change-email-checkbox"
                                     id="editEmail"
                                     checked={isEmailChecked}
                                     onCheckedChange={(val) => setIsEmailChecked(!!val)}
@@ -146,6 +149,7 @@ const ChangeInfoDialog = ({ isOpen, onClose, name, email }: {
                             </div>
                             {isEmailChecked && (
                                 <Input
+                                    data-testid="change-email-input"
                                     id="newEmail"
                                     type="email"
                                     value={newEmail}
@@ -157,7 +161,7 @@ const ChangeInfoDialog = ({ isOpen, onClose, name, email }: {
                     </div>
 
                     <DialogFooter>
-                        <Button type="submit">Save Changes</Button>
+                        <Button data-testid="change-info-save-button" type="submit">Save Changes</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
