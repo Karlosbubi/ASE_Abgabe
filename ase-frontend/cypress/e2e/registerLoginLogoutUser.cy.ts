@@ -98,4 +98,36 @@ describe('User Registration, Login, and Logout', () => {
       expect(currentUser).to.be.null;
     });
   });
+  it('should delete the user and clear the session', () => {
+    const websiteUrl = Cypress.env('websiteUrl');
+
+    cy.visit('/login');
+
+    const user = {
+      email: 'newuser@example.com',
+      password: 'password123',
+    };
+
+    cy.get('[data-testid="login-email-input"]').type(user.email);
+    cy.get('[data-testid="login-password-input"]').type(user.password);
+
+    cy.get('[data-testid="log-in-button"]').click();
+
+    cy.url().should('eq', `${websiteUrl}/`);
+
+    cy.get('[data-testid="dashboard-link"]').click();
+
+    cy.url().should('eq', `${websiteUrl}/dashboard`);
+
+    cy.get('[data-testid="delete-user-popup"]').click();
+    cy.get('[data-testid="delete-user-yes-button"]').click();
+
+    cy.url().should('eq', `${websiteUrl}/`);
+
+    cy.window().then((win) => {
+      const currentUser = win.localStorage.getItem('CURRENT_USER');
+      expect(currentUser).to.be.null;
+    });
+  })
+
 });

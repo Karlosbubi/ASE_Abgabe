@@ -24,30 +24,40 @@ function RegisterForm() {
             body: JSON.stringify(dto),
         };
 
-        await fetch("http://localhost:3000/user", requestOptions).then( async response => {
-            const json = await response.json();
-            console.log(json);
-        });
+        const response = await fetch("http://localhost:3000/user", requestOptions);
 
-        const loginDto = {
-            email: dto.email,
-            password: dto.password
-        };
+        if (response.status === 400) {
+            toast.dismiss();
+            toast.error("Email already exists! Please use another email and try again.")
+            return;
+        } else if (response.status === 500) {
+            toast.dismiss();
+            toast.error("Internal Server Error! Please try again later.")
+            return;
+        } else if (response.status === 201) {
+            const loginDto = {
+                email: dto.email,
+                password: dto.password
+            };
 
-        const loginRequestOptions = {
-            method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
-            body: JSON.stringify(loginDto),
-        };
+            const loginRequestOptions = {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify(loginDto),
+            };
 
-        await fetch("http://localhost:3000/auth", loginRequestOptions).then( async response => {
-            const json = await response.json();
-            console.log(json);
-            SetCurrentUserJwt(json.JWT);
-            navigate("/");
-            toast.dismiss()
-            toast.success("Registered successfully.");
-        });
+            await fetch("http://localhost:3000/auth", loginRequestOptions).then( async response => {
+                const json = await response.json();
+                console.log(json);
+                SetCurrentUserJwt(json.JWT);
+                navigate("/");
+                toast.dismiss()
+                toast.success("Registered successfully.");
+            });
+        } else {
+            console.error(`Unexpected status code: ${response.status}`);
+            return;
+        }
     };
 
     return <>

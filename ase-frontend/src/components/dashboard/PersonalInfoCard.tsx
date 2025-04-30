@@ -41,7 +41,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
             return await response.json();
         },
         onError: () => {
-            toast.error("Failed to load mindmaps");
+            toast.error("Failed to load mindmap statistics.");
         }
     });
 
@@ -100,6 +100,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({ name, email, onChan
                 </span>
 
                 <span
+                    data-testid="delete-user-popup"
                     onClick={onDeleteAccount}
                     className="block text-red-600 cursor-pointer underline mt-2"
                 >

@@ -69,7 +69,7 @@ const DeleteAccountDialog = ({ isOpen, onClose }: {
                     <p className="text-center text-gray-700">Are you sure you want to permanently delete your account?</p>
                 </div>
                 <DialogFooter className="flex justify-center gap-4">
-                    <Button variant="destructive" onClick={handleDelete}>
+                    <Button data-testid="delete-user-yes-button" variant="destructive" onClick={handleDelete}>
                         Yes
                     </Button>
                     <Button variant="outline" onClick={onClose}>

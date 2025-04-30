@@ -1,3 +1,5 @@
+import {GetCurrentUser} from "@/utils/storageWrapper";
+
 describe('Mindmap creation tests', () => {
     let newMindmapId: number;
     let newMindmapTitle: string;
@@ -16,6 +18,23 @@ describe('Mindmap creation tests', () => {
         cy.get('[data-testid="register-name-input"]').type(user.username);
         cy.get('[data-testid="register-password-input"]').type(user.password);
         cy.get('[data-testid="register-now-button"]').click();
+    });
+
+    after(() => {
+        const apiUrl = Cypress.env('apiUrl');
+        const user = GetCurrentUser();
+
+        if (user && user.JWT) {
+            cy.request({
+                method: 'DELETE',
+                url: `${apiUrl}/user`,
+                headers: {
+                    Authorization: `Bearer ${user.JWT}`
+                }
+            }).then((response) => {
+                expect(response.status).to.eq(200);
+            });
+        }
     });
 
     it('should allow the user to create a mindmap and display it in the list', () => {
