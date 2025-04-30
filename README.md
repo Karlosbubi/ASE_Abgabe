@@ -49,6 +49,12 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 4. run
    - `pnpm test` for unit test
    - `pnpm test:e2e` for nest e2e test
+
+> [!NOTE]
+> There aren't really calculations happening, so there aren't really unit tests to check them.
+> There is not much point to unit tests the relay of a DB-Query. See "e2e" tests to ensure the stack works.
+
+
 ### Frontend
 #### Cypress
 1. Ensure that Cypress is installed by running `pnpm install` in `ase-frontend`.
