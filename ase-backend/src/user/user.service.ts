@@ -73,6 +73,7 @@ export class UserService {
   }
 
   async suspend_by_id(suspendUser: SuspendUserDto) {
+    console.log(suspendUser);
     const user_id = Number(suspendUser.userId);
     return this.db.update_user_suspension_by_id(
       user_id,

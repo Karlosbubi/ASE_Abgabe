@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {GetCurrentUser} from "@/utils/storageWrapper.ts";
+import {Usr} from "@/DTO/usr.ts";
 
 const user = GetCurrentUser();
 const getAllUsers = async () => {
@@ -14,9 +15,17 @@ const getAllUsers = async () => {
 
 };
 
-const AllUsersCard = () => {
+// AHHHHHHHH das soll so nicht sein
+function isFoo(bool: boolean){
+    if (bool) {
+        return "Frue"
+    } else {
+        return "False";
+    }
+}
 
-    const [allUsers, setAllUsers] = useState<any[]>([]); // Oder passender Typ
+const AllUsersCard = () => {
+    const [allUsers, setAllUsers] = useState<Usr[]>([]); // Oder passender Typ
 
     useEffect(() => {
         getAllUsers().then(users => {
@@ -37,16 +46,19 @@ const AllUsersCard = () => {
                         <th className="py-2 px-4 border-b">Name</th>
                         <th className="py-2 px-4 border-b">Email</th>
                         <th className="py-2 px-4 border-b">IsAdmin</th>
+                        <th className="py-2 px-4 border-b">IsSuspended</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {allUsers.map((user) => (
+                    {allUsers.map((user: Usr) => (
                         <tr key={user.id}>
                             <td className="py-2 px-4 border-b">{user.id}</td>
                             <td className="py-2 px-4 border-b">{user.name}</td>
                             <td className="py-2 px-4 border-b">{user.email}</td>
-                            <td className="py-2 px-4 border-b">{user.isAdmin}</td>
+                            <td className="py-2 px-4 border-b">{isFoo(user.isadmin)}</td>
+                            <td className="py-2 px-4 border-b">{isFoo(user.issuspended)}</td>
                         </tr>
+
                     ))}
                     </tbody>
                 </table>
