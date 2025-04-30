@@ -18,7 +18,7 @@ const getAllUsers = async () => {
 // AHHHHHHHH das soll so nicht sein
 function isFoo(bool: boolean){
     if (bool) {
-        return "Frue"
+        return "True"
     } else {
         return "False";
     }
