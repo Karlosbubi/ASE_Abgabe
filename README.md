@@ -96,7 +96,7 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 - [x] Docker Daten persintenz gegen checken
 - [x] add Auth Roles (Will der Habeck unbedingt)
 - [x] Frontend: Export fixen (E/K)
-- [ ] Frontend: Admin Dashboard (D)
+- [x] Frontend: Admin Dashboard (D)
 - [x] Frontend: User Profile (E)
 - [x] Frontend: tests (E)
 - [x] Backend: tests (K)
