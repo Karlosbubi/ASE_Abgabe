@@ -83,7 +83,6 @@ We're a bit short of inventing the universe, so we'll assume you have a working 
 
 ### admin Nutzer
 
-- [ ] Als admin Nutzer möchte ich Statistiken über das Nutzverhalten einsehen können
 - [x] Als admin Nutzer möchte ich Nutzerkonten sperren können
 
 ## Todos
